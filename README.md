@@ -28,18 +28,21 @@
     c) contant like the visual elements loaded by the UI
 
 What the user sees:
+
 Entering the simulation:
   1) Upon launching, the options to create a new city or load a file.
   2) Creating a new city prompts for a city name, and loading a file will use what is in the file.
   3) Loads toolbar with buttons for setting down buildings, zones, or tools like demolish/remove.
   4) Status bar that gives some kind of time value (in-game clock/calendar) as well as budget.
   5) User can scroll the display pane or click to center on a given point.
+
 Making changes:
   1) Placing buildings/zones can be done if budget allows.
   2) Individual zones check for demand, connection to transport, and power.  Use probabilities and past history to determine if they
      should change in terms of development level.  Can increase in density and development or drop based on current conditions.
   3) User can place non-zone buildings like transport (roads) and civic buildings (police, parks) to improve conditions.
   4) At each time step, civic buildings can incur expense, while zone buildings may provide income.
+
 Save/Load/Exit
   1) User may opt to save at any time, which stores current simulation state.
   2) User may opt to load a saved simulation, replacing the current one entirely.
