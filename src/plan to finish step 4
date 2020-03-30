@@ -1,0 +1,3 @@
+Have a rough draft for our basic driver it needs 2 classes 
+1 a room class with a few methods that should be obvious from the driver
+2 a building class that is a parent to room
