@@ -1,14 +1,20 @@
+package dictionary;
 
-public class ClassEntry {
+/*TODO:
+ * generate enough dictionaries to revie converting teacher, classSchedule, studentList variables to
+ * Teacher, ClassSchedule, and Student -- also review implementing checks that the values exist in dictionary
+ * 
+ */
+public class ClassEntry implements Comparable<ClassEntry> {
 	private String classTitle;
-	private Teacher teacher;
+	private String teacher;
+	private String classSchedule;
 	private int studentCount;
-	private Student[] studentList;
-	private Schedule classSchedule;
+	private String[] studentList;
 	private int dictionaryIndex;
 	
-	public ClassEntry(String classTitle, Teacher teacher, int studentCount, Student[] studentList,
-			Schedule classSchedule, int dictionaryIndex) {
+	public ClassEntry(String classTitle, String teacher, String classSchedule, int studentCount, String[] studentList,
+			int dictionaryIndex) {
 		super();
 		this.classTitle = classTitle;
 		this.teacher = teacher;
@@ -22,7 +28,7 @@ public class ClassEntry {
 		return classTitle;
 	}
 
-	public Teacher getTeacher() {
+	public String getTeacher() {
 		return teacher;
 	}
 
@@ -30,11 +36,11 @@ public class ClassEntry {
 		return studentCount;
 	}
 
-	public Student[] getStudentList() {
+	public String[] getStudentList() {
 		return studentList;
 	}
 
-	public Schedule getClassSchedule() {
+	public String getClassSchedule() {
 		return classSchedule;
 	}
 
@@ -42,5 +48,22 @@ public class ClassEntry {
 		return dictionaryIndex;
 	}
 	
+	public int compareTo(ClassEntry otherClass) {
+		return this.classTitle.compareTo(otherClass.classTitle);
+	}
+	
+	@Override
+	public String toString() {
+		String text = "Class: "+ classTitle +"\n";
+		text+= "Teacher: "+ teacher+"\n";
+		text+= "Schedule: " + classSchedule +"\n";
+		text+= "Count: " + studentCount+"\n";
+		text+= "Students: \n";
+		for(String current:studentList) {
+			text+=current+"\n";
+		}
+		text+= "Index: "+dictionaryIndex+"\n";
+		return text;
+	}
 	
 }

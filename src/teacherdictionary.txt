@@ -1,0 +1,15 @@
+<ENTRYSTART>
+<ID>ZAK_B
+<NAME>Zakaria Baani
+<EMAIL>zakb@debug.fakecentury.edu
+<ENTRYEND>
+<ENTRYSTART>
+<ID>MAH_E
+<NAME>Mahmoud Eid
+<EMAIL>mahe@debug.fakecentury.edu
+<ENTRYEND>
+<ENTRYSTART>
+<ID>BRI_J
+<NAME>Brian Jenson
+<EMAIL>brij@debug.fakecentury.edu
+<ENTRYEND>

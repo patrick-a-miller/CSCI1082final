@@ -1,18 +1,18 @@
+package dictionary;
 
-public class Room {
-	private int number;
+public class Room implements Comparable<Room>{
+	private String roomId;
 	private int capacity;
 	private int dictionaryIndex;
 	
-	public Room(int number, int capacity, int dictionaryIndex) {
-		super();
-		this.number = number;
+	public Room(String roomId, int capacity, int dictionaryIndex) {
+		this.roomId = roomId;
 		this.capacity = capacity;
 		this.dictionaryIndex = dictionaryIndex;
 	}
 
-	public int getNumber() {
-		return number;
+	public String getRoomId() {
+		return roomId;
 	}
 
 	public int getCapacity() {
@@ -23,5 +23,15 @@ public class Room {
 		return dictionaryIndex;
 	}
 	
+	
+	public int compareTo(Room otherRoom) {
+		return this.roomId.compareTo(otherRoom.roomId);
+	}
+	
+	@Override
+	public String toString() {
+		String text = "Room: "+roomId+" Capacity: "+capacity + "Index: ";
+		return text;
+	}
 	
 }
