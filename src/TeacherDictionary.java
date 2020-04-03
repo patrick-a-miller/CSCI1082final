@@ -17,7 +17,7 @@ public class TeacherDictionary extends DictionaryFile {
 		this.setEntryCount(teacherArray.length);
 		if (teacherArray.length > 0) {
 			this.setValid(true);
-			currentIndex=0;
+			currentIndex = 0;
 			currentTeacher = teacherArray[currentIndex];
 		}
 	}
@@ -39,7 +39,8 @@ public class TeacherDictionary extends DictionaryFile {
 				entryOpen = true;
 			} else if (currentText.equals("<ENTRYEND>")) {
 				entryOpen = false;
-				teacherArray[currentCount] = new Teacher(currentCount, id, name, email);
+				teacherArray[currentCount] = new Teacher(id, name, email);
+				id = name = email = "";
 				currentCount++;
 				if (currentCount == rawData.length - 1) {
 					teacherArray = expandTeacherArray(teacherArray);
@@ -53,7 +54,12 @@ public class TeacherDictionary extends DictionaryFile {
 			}
 		}
 
-		return trimTeacherArray(teacherArray, currentCount);
+		teacherArray = trimTeacherArray(teacherArray, currentCount);
+		sortArray(teacherArray);
+		for(int i = 0; i<teacherArray.length;i++) {
+			teacherArray[i].setIndex(i);
+		}
+		return teacherArray;
 	}
 
 	private Teacher[] expandTeacherArray(Teacher[] teacherArray) {
@@ -71,23 +77,23 @@ public class TeacherDictionary extends DictionaryFile {
 		}
 		return trimArray;
 	}
-	
+
 	public Teacher getCurrentTeacher() {
 		return currentTeacher;
 	}
-	
+
 	public void setCurrentIndex(int index) {
-		if(index>-1 && index<teacherArray.length) {
-			currentIndex=index;
+		if (index > -1 && index < teacherArray.length) {
+			currentIndex = index;
 			currentTeacher = teacherArray[index];
 		}
 	}
-	
+
 	@Override
 	public String toString() {
 		String text = "";
-		for(Teacher current:teacherArray) {
-			text+=current.toString();
+		for (Teacher current : teacherArray) {
+			text += current.toString();
 		}
 		return text;
 	}

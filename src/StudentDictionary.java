@@ -40,6 +40,7 @@ public class StudentDictionary extends DictionaryFile {
 			} else if (currentText.equals("<ENTRYEND>")) {
 				entryOpen = false;
 				studentArray[currentCount] = new Student(currentCount, id, name, email);
+				id = name = email = "";
 				currentCount++;
 				if (currentCount == rawData.length - 1) {
 					studentArray = expandStudentArray(studentArray);
@@ -53,7 +54,12 @@ public class StudentDictionary extends DictionaryFile {
 			}
 		}
 
-		return trimStudentArray(studentArray, currentCount);
+		studentArray= trimStudentArray(studentArray, currentCount);
+		sortArray(studentArray);
+		for(int i = 0; i<studentArray.length;i++) {
+			studentArray[i].setIndex(i);
+		}
+		return studentArray;
 	}
 
 	private Student[] expandStudentArray(Student[] studentArray) {

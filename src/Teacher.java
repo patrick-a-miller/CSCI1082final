@@ -5,15 +5,14 @@ package dictionary;
  * review if Teacher and Student can be made derived classes of a Person or User class
  */
 		
-public class Teacher implements Comparable<Teacher>{
+public class Teacher implements Comparable{
 
-	private int index;
 	private String id;
 	private String name;
 	private String email;
+	private int index;
 	
-	public Teacher (int index, String id, String name, String email) {
-		this.index=index;
+	public Teacher (String id, String name, String email) {
 		this.id=id;
 		this.name=name;
 		this.email=email;
@@ -43,13 +42,17 @@ public class Teacher implements Comparable<Teacher>{
 		this.email = email;
 	}
 	
-		public int compareTo(Teacher otherTeacher) {
-			return id.compareTo(otherTeacher.id);
+	public int compareTo(Object otherObject) {
+		if ((otherObject == null) || !(otherObject instanceof Teacher)) {
+			throw new IllegalArgumentException("Not Teacher Entry.");
 		}
+		Teacher otherTeacher = (Teacher) otherObject;
+		return this.id.compareTo(otherTeacher.id);
+	}
 	
 	@Override
 	public String toString() {
-		String text = "ID: "+id+" Name: "+name+" Email: "+email+"\n";
+		String text = "ID: "+id+" Name: "+name+" Email: "+email+" Index: " + index+ "\n";
 		return text;
 	}
 	

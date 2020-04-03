@@ -60,6 +60,37 @@ System.out.println("Test Teacher Dictionary write");
 			System.out.println("Unable to open file.");			
 		}
 		
+		
+System.out.println("Test Room Dictionary write");
+		
+		try {
+			outputFile = new PrintWriter(new FileOutputStream("roomdictionary.txt"));
+		}catch (FileNotFoundException e){
+			System.out.println("Unable to open file.");			
+		}
+		
+		outputFile.println("<ENTRYSTART>");
+		outputFile.println("<ID>W101");
+		outputFile.println("<NAME>West 101");
+		outputFile.println("<CAPACITY>25");
+		outputFile.println("<ENTRYEND>");
+		outputFile.println("<ENTRYSTART>");
+		outputFile.println("<ID>E2213");
+		outputFile.println("<NAME>East 2213");
+		outputFile.println("<CAPACITY>45");
+		outputFile.println("<ENTRYEND>");
+		outputFile.println("<ENTRYSTART>");
+		outputFile.println("<ID>E1001");
+		outputFile.println("<NAME>East 1001");
+		outputFile.println("<CAPACITY>60");
+		outputFile.println("<ENTRYEND>");
+		
+		outputFile.close();
+		
+		RoomDictionary rooms = new RoomDictionary();
+		System.out.println(rooms);
+		
+		
 		/*
 		 * class
 		 * 
@@ -72,16 +103,15 @@ System.out.println("Test Teacher Dictionary write");
 		 * <ENTRYEND>
 		 * 
 		 */
+		
 		System.out.println("Test Class Dictionary write");
-		outputFile.println("<ENTRYSTART>");
-		outputFile.println("<TITLE>CSCI 1082_2");
-		outputFile.println("<TEACHER>ZACH_B");
-		outputFile.println("<SCHEDULE>CSCI 1082_2");
-				outputFile.println("<STUDENTCOUNT>15");
-		outputFile.println("<STUDENTLIST>AARON1");
-		outputFile.println("<STUDENTLIST>AMY2");
-		outputFile.println("<STUDENTLIST>BOB3");
-				outputFile.println("<ENTRYEND>");
+		
+		try {
+			outputFile = new PrintWriter(new FileOutputStream("classdictionary.txt"));
+		}catch (FileNotFoundException e){
+			System.out.println("Unable to open file.");			
+		}
+		
 		outputFile.println("<ENTRYSTART>");
 		outputFile.println("<TITLE>MATH 2081_1");
 		outputFile.println("<TEACHER>BRIAN_J");
@@ -99,15 +129,24 @@ System.out.println("Test Teacher Dictionary write");
 		outputFile.println("<STUDENTLIST>GRACE8");
 		outputFile.println("<STUDENTLIST>HENRY9");
 				outputFile.println("<ENTRYEND>");
+				outputFile.println("<ENTRYSTART>");
+				outputFile.println("<TITLE>CSCI 1082_2");
+				outputFile.println("<TEACHER>ZACH_B");
+				outputFile.println("<SCHEDULE>CSCI 1082_2");
+						outputFile.println("<STUDENTCOUNT>15");
+				outputFile.println("<STUDENTLIST>AARON1");
+				outputFile.println("<STUDENTLIST>AMY2");
+				outputFile.println("<STUDENTLIST>BOB3");
+						outputFile.println("<ENTRYEND>");
 		
 		outputFile.close();
 		
 		///
 		//DictionaryFile testDictionary = new DictionaryFile("classdictionary.txt","ClassDictionary");
 		ClassDictionary testDictionary = new ClassDictionary();
-		System.out.println(testDictionary.getEntryCount());
-		System.out.println(testDictionary.getOpenStatus());
-		System.out.println(testDictionary.isValid());
+//		System.out.println(testDictionary.getEntryCount());
+//		System.out.println(testDictionary.getOpenStatus());
+//		System.out.println(testDictionary.isValid());
 		System.out.println(testDictionary);
 		
 		

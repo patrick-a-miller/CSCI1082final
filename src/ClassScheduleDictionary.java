@@ -43,17 +43,20 @@ public class ClassScheduleDictionary extends DictionaryFile {
 				entryOpen = false;
 				scheduleArray[currentCount] = new ClassSchedule(currentCount, mnemonic, start, end, useDay);
 				currentCount++;
+				mnemonic = "";
+				start = end = 0;
+				useDay = new boolean[7];
 				if (currentCount == rawData.length - 1) {
 					scheduleArray = expandScheduleArray(scheduleArray);
 				}
-			} else if (currentText.substring(0, 6).contentEquals("<MNEM>")) {
+			} else if ((currentText.length()>=6)&&currentText.substring(0, 6).contentEquals("<MNEM>")) {
 				mnemonic = currentText.substring(6);
-			} else if (currentText.substring(0, 7).contentEquals("<START>")) {
+			} else if ((currentText.length()>=7)&&currentText.substring(0, 7).contentEquals("<START>")) {
 				start = Integer.parseInt(currentText.substring(6));
-			} else if (currentText.substring(0, 5).contentEquals("<END>")) {
+			} else if ((currentText.length()>=5)&&currentText.substring(0, 5).contentEquals("<END>")) {
 				end = Integer.parseInt(currentText.substring(5));
-			} else if (currentText.substring(0, 6).contentEquals("<DAYS>")) {
-				String booltext = currentText.substring(7);
+			} else if ((currentText.length()>=6)&&currentText.substring(0, 6).contentEquals("<DAYS>")) {
+				String booltext = currentText.substring(6);
 				for (int j = 0; j < 7; j++) {
 					if (booltext.charAt(j) == 'Y') {
 						useDay[j] = true;
@@ -64,7 +67,12 @@ public class ClassScheduleDictionary extends DictionaryFile {
 			}
 		}
 
-		return trimScheduleArray(scheduleArray, currentCount);
+		scheduleArray= trimScheduleArray(scheduleArray, currentCount);
+		sortArray(scheduleArray);
+		for(int i = 0; i<scheduleArray.length;i++) {
+			scheduleArray[i].setIndex(i);
+		}
+		return scheduleArray;
 	}
 
 	private ClassSchedule[] expandScheduleArray(ClassSchedule[] scheduleArray) {

@@ -9,7 +9,7 @@ package dictionary;
  * 
  */
 public class ClassDictionary extends DictionaryFile {
-	
+
 	private ClassEntry currentClass;
 	private int currentIndex;
 	private ClassEntry[] classArray;
@@ -32,55 +32,59 @@ public class ClassDictionary extends DictionaryFile {
 		boolean entryOpen = false;
 		String title = "";
 		String teacher = "";
-		String schedule="";
+		String schedule = "";
 		int studentCount = 0;
 		String[] studentList = new String[30];
-		int listLength=0;
+		int listLength = 0;
 		for (int i = 0; i < rawData.length; i++) {
 			String currentText = rawData[i];
-			if ((currentText.length()>=7)&&currentText.equals("<ENTRY>")) {
+			if ((currentText.length() >= 7) && currentText.equals("<ENTRY>")) {
 				if (entryOpen == true) {
 					title = "";
-					teacher="";
-					studentCount=0;
+					teacher = "";
+					studentCount = 0;
 					studentList = new String[30];
-					listLength=0;
+					listLength = 0;
 				}
 				entryOpen = true;
-			} else if ((currentText.length()>=10)&&currentText.equals("<ENTRYEND>")) {
+			} else if ((currentText.length() >= 10) && currentText.equals("<ENTRYEND>")) {
 				entryOpen = false;
-				studentList=trimStudentArray(studentList,listLength);
-				classArray[currentCount] = new ClassEntry(title, teacher, schedule, studentCount, studentList, currentCount);
+				studentList = trimStudentArray(studentList, listLength);
+				classArray[currentCount] = new ClassEntry(title, teacher, schedule, studentCount, studentList);
 				currentCount++;
 				title = "";
-				teacher="";
-				studentCount=0;
+				teacher = "";
+				studentCount = 0;
 				studentList = new String[30];
-				listLength=0;
+				listLength = 0;
 				if (currentCount == rawData.length - 1) {
 					classArray = expandClassArray(classArray);
 				}
-			} else if ((currentText.length()>=7)&&currentText.substring(0, 7).equals("<TITLE>")) {
+			} else if ((currentText.length() >= 7) && currentText.substring(0, 7).equals("<TITLE>")) {
 				title = currentText.substring(7);
-			} else if ((currentText.length()>=9)&&currentText.substring(0, 9).equals("<TEACHER>")) {
+			} else if ((currentText.length() >= 9) && currentText.substring(0, 9).equals("<TEACHER>")) {
 				teacher = currentText.substring(9);
-			}else if((currentText.length()>=10)&&currentText.substring(0, 10).equals("<SCHEDULE>")) {
+			} else if ((currentText.length() >= 10) && currentText.substring(0, 10).equals("<SCHEDULE>")) {
 				schedule = currentText.substring(10);
-			}else if ((currentText.length()>=14)&&(currentText.substring(0,14).equals("<STUDENTCOUNT>"))) {
-							studentCount = Integer.parseInt(currentText.substring(14)); 
-					
-			} else if((currentText.length()>=13)&&(currentText.substring(0, 13).equals("<STUDENTLIST>"))) {
+			} else if ((currentText.length() >= 14) && (currentText.substring(0, 14).equals("<STUDENTCOUNT>"))) {
+				studentCount = Integer.parseInt(currentText.substring(14));
+
+			} else if ((currentText.length() >= 13) && (currentText.substring(0, 13).equals("<STUDENTLIST>"))) {
 				String studentId = currentText.substring(13);
-				studentList[listLength]=studentId;
+				studentList[listLength] = studentId;
 				listLength++;
-				if(listLength==studentList.length) {
+				if (listLength == studentList.length) {
 					studentList = expandStudentArray(studentList);
 				}
-				}
 			}
-		
+		}
 
-		return trimClassArray(classArray, currentCount);
+		classArray= trimClassArray(classArray, currentCount);
+		sortArray(classArray);
+		for(int i = 0; i<classArray.length;i++) {
+			classArray[i].setIndex(i);
+		}
+		return classArray;
 	}
 
 	private ClassEntry[] expandClassArray(ClassEntry[] classArray) {
@@ -90,7 +94,7 @@ public class ClassDictionary extends DictionaryFile {
 		}
 		return newArray;
 	}
-	
+
 	private ClassEntry[] trimClassArray(ClassEntry[] classArray, int currentCount) {
 		ClassEntry[] trimArray = new ClassEntry[currentCount];
 		for (int i = 0; i < trimArray.length; i++) {
@@ -98,7 +102,7 @@ public class ClassDictionary extends DictionaryFile {
 		}
 		return trimArray;
 	}
-	
+
 	private String[] expandStudentArray(String[] studentList) {
 		String[] newArray = new String[studentList.length + 30];
 		for (int i = 0; i < studentList.length; i++) {
@@ -106,7 +110,7 @@ public class ClassDictionary extends DictionaryFile {
 		}
 		return newArray;
 	}
-	
+
 	private String[] trimStudentArray(String[] studentList, int currentCount) {
 		String[] trimArray = new String[currentCount];
 		for (int i = 0; i < trimArray.length; i++) {
@@ -134,7 +138,5 @@ public class ClassDictionary extends DictionaryFile {
 		}
 		return text;
 	}
-
-
 
 }
