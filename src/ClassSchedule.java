@@ -1,6 +1,6 @@
 package dictionary;
 
-public class ClassSchedule {
+public class ClassSchedule implements Comparable {
 
 	private int index;
 	private String mnemonic;
@@ -43,6 +43,14 @@ public class ClassSchedule {
 	}
 	public String getMnemonic() {
 		return mnemonic;
+	}
+	
+	public int compareTo(Object otherObject) {
+		if((otherObject == null)||!(otherObject instanceof ClassSchedule)) {
+			throw new IllegalArgumentException("Not ClassSchedule Entry.");
+		}
+		ClassSchedule otherSchedule = (ClassSchedule) otherObject;
+		return this.mnemonic.compareTo(otherSchedule.mnemonic);
 	}
 }
 
