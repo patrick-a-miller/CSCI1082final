@@ -14,13 +14,10 @@ public class Driver {
 					+ "format dd/mm/yy:");
 			day = scan.nextLine();
 			//add a pattern check here first get date then get time and them together
-			System.out.println("Please enter the time on that date you would like to alter"
-					+ "in 24 hour format hh:mm");
+			System.out.println("Please enter the hour on that date you would like to alter"
+					+ "in 24 hour format hh");
 			time = scan.nextLine();
-			//once again add a pattern checker
-			dateString = day + time;
-			//Obviously it doesn't work like this fix later with greg calendar
-			date = dateString;
+			//we keep day and time separate
 			System.out.println("What room would you like to edit enter room number:");
 			room = scan.nextLine();
 			System.out.println("What would you like to do to this room"
@@ -31,7 +28,7 @@ public class Driver {
 					+ "/ntype 1-3 or 0");
 			int choice = scan.nextInt();
 			switch(choice) {
-				case 1: if(room.checkAvalibilty) {
+				case 1: 
 					System.out.println("What event would you like to set here");
 					room.event = scan.nextLine();
 					break;

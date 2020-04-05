@@ -1,11 +1,15 @@
 package dictionary;
 
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
+
 public class Room implements Comparable{
 	private String roomId;
 	private String roomName;
 	private int capacity;
 	private int index;
-	
+	ArrayList<DayMonthYear> DMY;
+	//thinking arraylist of day month year in room with a class DayMonthYear
 	public Room(String roomId, String roomName, int capacity) {
 		this.roomId = roomId;
 		this.roomName=roomName;
@@ -40,6 +44,8 @@ public class Room implements Comparable{
 		Room otherRoom = (Room) otherObject;
 		return this.roomId.compareTo(otherRoom.roomId);
 	}
+	
+
 			
 	@Override
 	public String toString() {
