@@ -93,7 +93,8 @@ addTimeSlot(year,month,day,time);
 			System.out.println("Would you like to see the current schedule y/n");
 			String print = scan.next();
 			if(print.equals("y")) {
-				System.out.println(calendarRooms[roomIndex].toString());
+				//System.out.println(calendarRooms[roomIndex].toString());
+				printCalendars();
 			}else {
 				System.out.println("Shutting down...");
 			}
@@ -124,7 +125,7 @@ addTimeSlot(year,month,day,time);
 		enterInteger_Required(scan, "Year");
 		System.out.print("Month (0-11");
 		enterInteger_Required(scan, "Month");
-		System.out.print("Day (1-31)");
+		System.out.print("Day (0-30)");
 		enterInteger_Required(scan, "Day");
 		System.out.print("Hour (0-23)");
 		enterInteger_Required(scan, "Hour");
@@ -194,13 +195,8 @@ addTimeSlot(year,month,day,time);
 	}
 
 	/*
-	 * Method: enterInteger_required Purpose: Input loop for unskippable data fields
-	 * for integer values Parameters: Scanner keyboard, String fieldLabel Returns:
-	 * None Preconditions: Assumes Scanner keyboard initialized for console input
-	 * Postconditions: will make forward progress only after a valid value has been
-	 * entered and accepted. The conditions for acceptance are dictated by the
-	 * fieldLabel, and its associated setter method *fall-through case if code
-	 * cannot determine matching setter for fieldLabel will exit program
+	 * TODO: Revisit implementation or replace this code
+	 * 		 Intended to provide fast initial implementation of format-checked inputs.
 	 */
 	public static void enterInteger_Required(Scanner keyboard, String fieldLabel) {
 		// inputAccepted is controlling variable for do-while loop
@@ -293,6 +289,12 @@ addTimeSlot(year,month,day,time);
 		// clear keyboard buffer of \n character to prevent
 		// interference with later fields
 		keyboard.nextLine();
+	}
+	
+	public static void printCalendars() {
+		for(int i = 0; i<calendarRooms.length;i++) {
+		System.out.println(calendarRooms[i].toString());
+		}
 	}
 
 	public static void setUpFiles() {
