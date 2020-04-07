@@ -1,5 +1,3 @@
-package dictionary;
-
 public class ObjectFile {
 
 	private String filePath;

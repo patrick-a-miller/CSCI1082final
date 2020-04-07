@@ -1,4 +1,4 @@
-package dictionary;
+
 import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;

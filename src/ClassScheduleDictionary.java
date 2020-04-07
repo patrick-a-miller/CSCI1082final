@@ -1,4 +1,4 @@
-package dictionary;
+
 
 /*
  * TODO: review sorting of entries,

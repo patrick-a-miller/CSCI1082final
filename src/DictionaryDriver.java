@@ -1,13 +1,16 @@
-package dictionary;
+
 
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.io.FileOutputStream;
 import java.io.FileNotFoundException;
 
 
 public class DictionaryDriver {
 
-	public static void main(String[] args) {
+	public static void mainx(String[] args) {
 	
 
 		/*
@@ -149,7 +152,10 @@ System.out.println("Test Room Dictionary write");
 //		System.out.println(testDictionary.isValid());
 		System.out.println(testDictionary);
 		
-		
+		Calendar calendar = new GregorianCalendar();
+		SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHH");
+		System.out.println(df.format(calendar.getTime()));
+
 	}
 	
 	

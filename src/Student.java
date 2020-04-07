@@ -1,4 +1,4 @@
-package dictionary;
+
 
 /*
  * TODO: review comments
@@ -47,7 +47,7 @@ public class Student implements Comparable {
 	}
 
 	public int compareTo(Object otherObject) {
-		if ((otherObject == null) || !(otherObject instanceof Student)) {
+		if (!(otherObject instanceof Student)) {
 			throw new IllegalArgumentException("Not Student Entry.");
 		}
 		Student otherStudent = (Student) otherObject;
