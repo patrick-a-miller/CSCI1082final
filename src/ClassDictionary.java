@@ -1,4 +1,4 @@
-package dictionary;
+
 
 /*
  * dictionary may have dependencies on several other dictionaries in the future

@@ -1,10 +1,4 @@
-package dictionary;
-/*
- * TODO:
- * review sorting,
- * review comments,
- * evaluate length checks for parsing
- */
+
 		
 public class StudentDictionary extends DictionaryFile {
 	private Student currentStudent;

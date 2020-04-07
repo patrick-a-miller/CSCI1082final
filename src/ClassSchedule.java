@@ -1,4 +1,4 @@
-package dictionary;
+
 
 public class ClassSchedule implements Comparable {
 

@@ -1,4 +1,4 @@
-package dictionary;
+
 
 /*
  * TODO:
@@ -86,12 +86,21 @@ public class RoomDictionary extends DictionaryFile {
 	public Room getCurrentRoom() {
 		return currentRoom;
 	}
-
+	
 	public void setCurrentIndex(int index) {
 		if (index > -1 && index < roomArray.length) {
 			currentIndex = index;
 			currentRoom = roomArray[index];
 		}
+	}
+	
+	public int searchRoomId(String term) {
+		for(int i = 0; i<roomArray.length;i++) {
+			if(roomArray[i].getRoomId().equals(term)) {
+				return i;
+			}
+		}
+		return -1;
 	}
 
 	@Override
