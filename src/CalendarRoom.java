@@ -76,7 +76,8 @@ public class CalendarRoom {
 	public String toString() {
 		String text = "Calendar for Room: " + room.getRoomId() +" Cap: "+ maxCapacity+ "\n";
 		for(int i = 0; i<calendarDays.size(); i++) {
-			text+= calendarDays.get(i).toString()+"\n";
+			DayMonthYear indexDay = calendarDays.get(i);
+			text+= indexDay+"\n";
 		}
 		return text;
 	}

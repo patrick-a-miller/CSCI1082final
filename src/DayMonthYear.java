@@ -130,7 +130,7 @@ public class DayMonthYear implements Comparable{
 	@Override
 	public String toString() {
 		SimpleDateFormat df = new SimpleDateFormat("EEE d MMM yy");
-		String text = "DayMonthYear:" + df.format(day) +" \n";
+		String text = "DayMonthYear:" + df.format(day.getTime()) +" \n";
 				if(timeSlots.isEmpty()) {
 					text+="Empty\n";
 				}else {
