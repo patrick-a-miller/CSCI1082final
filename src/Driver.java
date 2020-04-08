@@ -33,17 +33,7 @@ public class Driver {
 			while(mainLoop.equals("y")) {
 				//initial date settings
 				promptDaySettings();
-				//day = scan.nextLine();
-				//add a pattern check here first get date then get time and them together
-				//System.out.println("Please enter the time on that date you would like to alter"
-						//+ "in 24 hour format hh:mm");
-				//time = scan.nextLine();
-				//once again add a pattern checker
-//dateString = day + time;
-		//Obviously it doesn't work like this fix later with greg calendar
-	//date = dateString;
-		//System.out.println("What room would you like to edit enter room number:");
-			//room = scan.nextLine();
+				
 				promptRoomSetting();
 				System.out.println("What would you like to do to this room"
 						+ "\n(1) Add event"
