@@ -1,3 +1,4 @@
+package CalendarObjects;
 
 
 public class ClassSchedule implements Comparable {
