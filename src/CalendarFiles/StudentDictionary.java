@@ -1,5 +1,6 @@
+package CalendarFiles;
+import CalendarObjects.Student;
 
-		
 public class StudentDictionary extends DictionaryFile {
 	private Student currentStudent;
 	private int currentIndex;

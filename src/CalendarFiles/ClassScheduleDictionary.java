@@ -1,4 +1,5 @@
-
+package CalendarFiles;
+import CalendarObjects.ClassSchedule;
 
 /*
  * TODO: review sorting of entries,

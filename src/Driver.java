@@ -1,5 +1,15 @@
 
 import java.util.Scanner;
+
+import CalendarFiles.ClassDictionary;
+import CalendarFiles.RoomDictionary;
+import CalendarFiles.TeacherDictionary;
+import CalendarObjects.CalendarRoom;
+import CalendarObjects.ClassEntry;
+import CalendarObjects.DayMonthYear;
+import CalendarObjects.Room;
+import CalendarObjects.Teacher;
+
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
@@ -33,7 +43,17 @@ public class Driver {
 			while(mainLoop.equals("y")) {
 				//initial date settings
 				promptDaySettings();
-				
+				//day = scan.nextLine();
+				//add a pattern check here first get date then get time and them together
+				//System.out.println("Please enter the time on that date you would like to alter"
+						//+ "in 24 hour format hh:mm");
+				//time = scan.nextLine();
+				//once again add a pattern checker
+//dateString = day + time;
+		//Obviously it doesn't work like this fix later with greg calendar
+	//date = dateString;
+		//System.out.println("What room would you like to edit enter room number:");
+			//room = scan.nextLine();
 				promptRoomSetting();
 				System.out.println("What would you like to do to this room"
 						+ "\n(1) Add event"
@@ -113,11 +133,11 @@ addTimeSlot(year,month,day,time);
 //		+ "format dd/mm/yy:");
 		System.out.print("Year (nnnn): ");
 		enterInteger_Required(scan, "Year");
-		System.out.print("Month (0-11");
+		System.out.print("Month (0-11): ");
 		enterInteger_Required(scan, "Month");
-		System.out.print("Day (0-30)");
+		System.out.print("Day (0-30): ");
 		enterInteger_Required(scan, "Day");
-		System.out.print("Hour (0-23)");
+		System.out.print("Hour (0-23): ");
 		enterInteger_Required(scan, "Hour");
 	}
 
