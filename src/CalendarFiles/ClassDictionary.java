@@ -1,4 +1,5 @@
-
+package CalendarFiles;
+import CalendarObjects.ClassEntry;
 
 /*
  * dictionary may have dependencies on several other dictionaries in the future
