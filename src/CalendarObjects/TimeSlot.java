@@ -1,4 +1,4 @@
-
+package CalendarObjects;
 public class TimeSlot implements Comparable {
 	private int time;
 	private int durationMinutes;
