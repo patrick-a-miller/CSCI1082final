@@ -6,9 +6,6 @@ public class TimeSlot implements Comparable {
 	private ClassEntry classEntry;
 	private Teacher teacher;
 	
-	// private String description;
-	// private String event;
-
 	public TimeSlot(int time, int durationMinutes, Room room, ClassEntry classEntry, Teacher teacher) {
 		this.time=time;
 		this.durationMinutes=durationMinutes;

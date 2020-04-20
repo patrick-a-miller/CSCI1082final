@@ -1,84 +1,97 @@
 package CalendarObjects;
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.GregorianCalendar;
 //import java.util.GregorianCalendar;
+
 
 public class CalendarRoom {
 
 	private Room room;
-	private int maxCapacity;
-	private ArrayList<DayMonthYear> calendarDays;
+	private GregorianCalendar day;
+	private TimeSlot[] timeSlots;
+	private static final int SLOTS_PER_DAY=24;
 
-	public CalendarRoom(Room room) {
+	
+	public CalendarRoom(GregorianCalendar day, Room room) {
 		this.room = room;
-		maxCapacity = room.getCapacity();
-		calendarDays = new ArrayList<DayMonthYear>();
+		timeSlots = new TimeSlot[SLOTS_PER_DAY];
 
 	}
 
+	
+	/**
+	 * Accessor for room dictionary entry associated with this CalendarRoom
+	 * @return room object
+	 */
 	public Room getRoom() {
 		return room;
 	}
 
+	
+	/**
+	 * Method that returns the max capacity of a rooom.
+	 * 
+	 * @return max capacity of the room, as recorded in the Room dictionary 
+	 */
 	public int getMaxCapacity() {
-		return maxCapacity;
+		return room.getCapacity();
 	}
 
-	public ArrayList<DayMonthYear> getCalendarDays() {
-		return calendarDays;
+	
+	/**
+	 * Accessor that provides the array of time slots for a given CalendarRoom
+	 * @return timeSlots - array of time slots
+	 */
+	public TimeSlot[] getTimeSlots() {
+		return timeSlots;
 	}
 
-	public DayMonthYear addCalendarDay(int year, int month, int day) {
-		DayMonthYear newDate = new DayMonthYear(year, month, day);
-		if (calendarDays.size() == 0) {
-			calendarDays.add(newDate);
-			return calendarDays.get(0);
-		} else {
-			for (int i = 0; i < calendarDays.size(); i++) {
-				DayMonthYear indexDay = calendarDays.get(i);
-				int comparison = indexDay.compareTo(newDate);
-				if (comparison == 0) {
-					return calendarDays.get(i);
-				} else if (comparison < 0) {
-					calendarDays.add(i, newDate);
-					return calendarDays.get(i);
-				} else if (i == calendarDays.size() - 1) {
-
-					calendarDays.add(newDate);
-					return calendarDays.get(i+1);
-				}
-			}
+	
+	
+	/**
+	 * Indicates if a given time slot is free for a new event to be added
+	 * @param hour - int value 0-23 for the hour of the day
+	 * @return true if no timeslot has been registered for the given hour, false otherwise
+	 */
+	public boolean isAvailable(int hour) {
+		if(hour<0 || hour>23) {
+			return false;
 		}
-		return null;
-	}
-
-	public int searchCalendarDay(int year, int month, int day) {
-		DayMonthYear searchDate = new DayMonthYear(year, month, day);
-		if (calendarDays.size() == 0) {
-			return -1;
-		} else {
-			for (int i = 0; i < calendarDays.size(); i++) {
-				DayMonthYear indexDay = calendarDays.get(i);
-				int comparison = indexDay.compareTo(searchDate);
-				if (comparison == 0) {
-					return i;
-				}
-
-			}
-			return -1;
+		if(timeSlots[hour]==null) {
+			return true;
 		}
+		return false;
 	}
 	
-	public DayMonthYear getDayMonthYear(int index) {
-		return calendarDays.get(index);
-		
-	}
+	
+	public boolean addTimeSlot(int time, Room room, ClassEntry classEntry, Teacher teacher) {
+		if ((0 > time || time > 23)) {
+			System.out.println("INVALID TIME!");
+			return false;
+		}
+		if(!isAvailable(time)) {
+			System.out.println("There is already an event here please select a different time.");
+			return false;
+		}
+		timeSlots[time] = new TimeSlot(this.convertCalendarTime(day)+time,60,room,classEntry,teacher);
+		return true;
 
+	}
+	
+	
+	public int convertCalendarTime(GregorianCalendar date) {
+		SimpleDateFormat timeFormat = new SimpleDateFormat("yyyyMMddHH");
+		return Integer.parseInt(timeFormat.format(date.getTime()));
+	}
+	
 	@Override
 	public String toString() {
-		String text = "Calendar for Room: " + room.getRoomId() +" Cap: "+ maxCapacity+ "\n";
-		for(int i = 0; i<calendarDays.size(); i++) {
-			DayMonthYear indexDay = calendarDays.get(i);
-			text+= indexDay+"\n";
+		String text = "Calendar for Room: " + room.getRoomId() +" Cap: "+ getMaxCapacity()+ "\n";
+		for(int i = 0; i<timeSlots.length; i++) {
+			TimeSlot indexTime = timeSlots[i];
+			if(indexTime!=null) {
+				text+=indexTime.toString()+"\n";
+			}
 		}
 		return text;
 	}
