@@ -78,6 +78,20 @@ public class CalendarRoom {
 
 	}
 	
+	public boolean removeTimeSlot(int time) {
+		if ((0 > time || time > 23)) {
+			System.out.println("INVALID TIME!");
+			return false;
+		}
+		if(isAvailable(time)) {
+			System.out.println("Nothing scheduled.");
+			return false;
+		}else {
+			timeSlots[time]=null;
+			return true;
+		}
+	}
+	
 	
 	public int convertCalendarTime(GregorianCalendar date) {
 		SimpleDateFormat timeFormat = new SimpleDateFormat("yyyyMMddHH");
