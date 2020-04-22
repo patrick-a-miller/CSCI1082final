@@ -5,7 +5,7 @@ import java.util.GregorianCalendar;
 public class Day{
 	private GregorianCalendar day;
 	private ArrayList<Room> rooms;
-	
+	//would you rather Day have an arraylist of Room or of CalenderRoom?
 	
 	public GregorianCalendar getDay() {
 		return day;
