@@ -7,6 +7,7 @@ public class CalendarRoom {
 	private Room room;
 	private int maxCapacity;
 	private ArrayList<DayMonthYear> calendarDays;
+	//this is suppost to be a 24 size array of timeslots right?
 
 	public CalendarRoom(Room room) {
 		this.room = room;
