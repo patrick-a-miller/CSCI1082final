@@ -3,7 +3,7 @@ public class TimeSlot {
 
 	private ClassEntry classEntry;
 	private Teacher teacher;
-	
+	//trimmed most of this, doesn't have to be comparable or hold any infomation besides teacher and class
 	// private String description;
 	// private String event;
 
