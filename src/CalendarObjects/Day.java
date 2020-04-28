@@ -1,5 +1,6 @@
 package CalendarObjects;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
@@ -35,8 +36,26 @@ public class Day{
 			}
 		}
 	}
+	
+	public CalendarRoom getCalendarRoom(Room otherRoom) {
+		CalendarRoom currentCalendarRoom = null;
+		for(int i = 0; i<rooms.size();i++) {
+			currentCalendarRoom = rooms.get(i);
+			if(currentCalendarRoom!=null&&currentCalendarRoom.getRoom().equals(otherRoom)) {
+				return currentCalendarRoom;
+			}
+		}
+		return null;
+	}
 
-
+public String toString() {
+	SimpleDateFormat timeFormat = new SimpleDateFormat("yyyyMMddHH");
+	String text = "Day: "+timeFormat.format(day.getTime())+"\n";
+	for(int i=0; i<rooms.size();i++) {
+		text+=rooms.get(i).toString()+"\n";
+	}
+	return text;
+}
 
 
 }

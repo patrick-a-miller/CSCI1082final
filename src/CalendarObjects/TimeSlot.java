@@ -78,10 +78,18 @@ public class TimeSlot implements Comparable {
 			return false;
 		}
 		TimeSlot otherTime= (TimeSlot) otherObject;
-		if(time==otherTime.getTime()) {
-			return true;
+		if(time!=otherTime.getTime()) {
+			return false;
+		}else if (durationMinutes!=otherTime.getDurationMinutes()) {
+			return false;
+		}else if(room.equals(otherTime.getRoom())) {
+			return false;
+		}else if(classEntry.equals(otherTime.getClassEntry())) {
+			return false;
+		}else if(teacher.equals(otherTime.getTeacher())) {
+			return false;
 		}
-		return false;
+		return true;
 	}
 	
 	@Override

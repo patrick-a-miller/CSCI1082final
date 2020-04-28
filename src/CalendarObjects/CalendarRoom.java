@@ -46,6 +46,14 @@ public class CalendarRoom {
 		return timeSlots;
 	}
 
+	public TimeSlot getTimeSlot(int hour) {
+		if(hour<0 || hour>23) {
+			return null;
+		}else {
+			return timeSlots[hour];
+		}
+		
+	}
 	
 	
 	/**

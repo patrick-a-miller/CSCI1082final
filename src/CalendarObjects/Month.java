@@ -1,5 +1,6 @@
 package CalendarObjects;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -23,6 +24,14 @@ public class Month{
 		this.days = days;
 	}
 	
+	public Day getDay(int dayNumber) {
+		if(dayNumber<0 || dayNumber>days.length-1) {
+			return null;
+		}else {
+			return days[dayNumber-1];
+		}
+	}
+	
 
 	public Month(GregorianCalendar month, Room[] roomArray) {
 		this.month = month;
@@ -33,4 +42,14 @@ public class Month{
 	}
 
 
+	@Override
+	public String toString() {
+		SimpleDateFormat timeFormat = new SimpleDateFormat("yyyyMMddHH");
+		String text = "Month: "+ timeFormat.format(month.getTime()) +"\n";
+		for(int i=0;i<days.length;i++) {
+			text+=days[i].toString()+"\n";
+		}
+		return text;
+	}
+	
 }
