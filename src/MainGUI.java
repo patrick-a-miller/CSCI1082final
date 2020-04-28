@@ -11,10 +11,15 @@ import javax.swing.JButton;
 import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
+import java.awt.Dimension;
+import java.awt.Rectangle;
+import javax.swing.JTextField;
 
 public class MainGUI extends JFrame {
 
 	private JPanel contentPane;
+	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -41,66 +46,59 @@ public class MainGUI extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		JPanel panel_2 = new JPanel();
-		contentPane.add(panel_2);
-		panel_2.setLayout(new GridLayout(0, 1, 0, 0));
+		JPanel leftPanel = new JPanel();
+		contentPane.add(leftPanel, BorderLayout.WEST);
+		leftPanel.setLayout(new GridLayout(8, 1, 0, 0));
+		
+		textField = new JTextField();
+		leftPanel.add(textField);
 		
 		JComboBox comboBox = new JComboBox();
-		panel_2.add(comboBox);
+		leftPanel.add(comboBox);
 		
 		JComboBox comboBox_1 = new JComboBox();
-		panel_2.add(comboBox_1);
+		leftPanel.add(comboBox_1);
 		
 		JComboBox comboBox_2 = new JComboBox();
-		panel_2.add(comboBox_2);
+		leftPanel.add(comboBox_2);
 		
 		JComboBox comboBox_3 = new JComboBox();
-		panel_2.add(comboBox_3);
+		leftPanel.add(comboBox_3);
 		
-		JComboBox comboBox_4 = new JComboBox();
-		panel_2.add(comboBox_4);
+		JButton btnAddButton = new JButton("Add Event");
+		leftPanel.add(btnAddButton);
 		
-		JButton btnNewButton = new JButton("Add event");
-		panel_2.add(btnNewButton);
-		
-		JButton btnNewButton_1 = new JButton("Remove event");
-		panel_2.add(btnNewButton_1);
-		
-		JPanel panel_1 = new JPanel();
-		contentPane.add(panel_1);
-		panel_1.setLayout(new BorderLayout(0, 0));
-		
-		JScrollBar scrollBar = new JScrollBar();
-		panel_1.add(scrollBar, BorderLayout.EAST);
-		
-		JPanel panel_3 = new JPanel();
-		panel_1.add(panel_3, BorderLayout.CENTER);
-		panel_3.setLayout(new GridLayout(24, 7, 0, 0));
+		JButton btnRemoveButton = new JButton("Remove Event");
+		leftPanel.add(btnRemoveButton);
 		
 		
+		textField.setColumns(10);
+		
+		JPanel centerPanel = new JPanel();
+		centerPanel.setLayout(new GridLayout(24, 7, 0, 0));
 		
 		for (int i = 0; i < 168; i++) {
 			JButton btnNewButton_i = new JButton("New button");
-			panel_3.add(btnNewButton_i);
 			btnNewButton_i.setText(String.valueOf(i));
+			centerPanel.add(btnNewButton_i);
 		}
 		
+		JScrollPane scrollPane = new JScrollPane(centerPanel);
+		contentPane.add(scrollPane, BorderLayout.CENTER);
 		
+		JPanel rightPanel = new JPanel();
+		contentPane.add(rightPanel, BorderLayout.EAST);
+		rightPanel.setLayout(new GridLayout(8, 0, 0, 0));
 		
-		JPanel panel = new JPanel();
-		contentPane.add(panel);
-		panel.setLayout(new GridLayout(0, 1, 0, 0));
-		
-		JTextArea textArea = new JTextArea();
-		panel.add(textArea);
+		JComboBox comboBox_4 = new JComboBox();
+		rightPanel.add(comboBox_4);
 		
 		JComboBox comboBox_5 = new JComboBox();
-		panel.add(comboBox_5);
+		rightPanel.add(comboBox_5);
 		
-		JComboBox comboBox_6 = new JComboBox();
-		panel.add(comboBox_6);
+		
 	}
 
 }
