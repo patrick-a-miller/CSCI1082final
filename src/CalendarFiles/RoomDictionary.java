@@ -104,6 +104,10 @@ public class RoomDictionary extends DictionaryFile {
 		return -1;
 	}
 
+	public Room[] getRoomArray() {
+		return roomArray;
+	}
+	
 	@Override
 	public String toString() {
 		String text = "";

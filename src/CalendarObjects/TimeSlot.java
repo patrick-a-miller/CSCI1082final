@@ -3,12 +3,11 @@ public class TimeSlot {
 
 	private ClassEntry classEntry;
 	private Teacher teacher;
-	//trimmed most of this, doesn't have to be comparable or hold any infomation 
-	//besides teacher and class do to room holding 24 of them
-	// private String description;
-	// private String event;
-
-	public TimeSlot(ClassEntry classEntry, Teacher teacher) {
+	
+	public TimeSlot(int time, int durationMinutes, Room room, ClassEntry classEntry, Teacher teacher) {
+		this.time=time;
+		this.durationMinutes=durationMinutes;
+		this.room=room;
 
 		this.classEntry=classEntry;
 		this.teacher=teacher;
@@ -32,6 +31,24 @@ public class TimeSlot {
 	}
 	
 
+	@Override
+	public boolean equals(Object otherObject) {
+		if(!(otherObject instanceof TimeSlot)) {
+			return false;
+		}
+		TimeSlot otherTime= (TimeSlot) otherObject;
+		if(time!=otherTime.getTime()) {
+			return false;
+		}else if (durationMinutes!=otherTime.getDurationMinutes()) {
+			return false;
+		}else if(room.equals(otherTime.getRoom())) {
+			return false;
+		}else if(classEntry.equals(otherTime.getClassEntry())) {
+			return false;
+		}else if(teacher.equals(otherTime.getTeacher())) {
+			return false;
+		}
+		return true;
 
 	}
 	
