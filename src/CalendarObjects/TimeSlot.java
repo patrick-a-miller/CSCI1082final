@@ -1,8 +1,6 @@
 package CalendarObjects;
-public class TimeSlot implements Comparable {
-	private int time;
-	private int durationMinutes;
-	private Room room;
+public class TimeSlot {
+
 	private ClassEntry classEntry;
 	private Teacher teacher;
 	
@@ -10,33 +8,11 @@ public class TimeSlot implements Comparable {
 		this.time=time;
 		this.durationMinutes=durationMinutes;
 		this.room=room;
+
 		this.classEntry=classEntry;
 		this.teacher=teacher;
 	}
 	
-	public int getTime() {
-		return time;
-	}
-
-	public void setTime(int time) {
-		this.time=time;
-	}
-
-	public int getDurationMinutes() {
-		return durationMinutes;
-	}
-
-	public void setDurationMinutes(int durationMinutes) {
-		this.durationMinutes = durationMinutes;
-	}
-
-	public Room getRoom() {
-		return room;
-	}
-
-	public void setRoom(Room room) {
-		this.room = room;
-	}
 
 	public ClassEntry getClassEntry() {
 		return classEntry;
@@ -54,23 +30,6 @@ public class TimeSlot implements Comparable {
 		this.teacher = teacher;
 	}
 	
-	@Override
-	public int compareTo(Object otherObject) {
-		if(!(otherObject instanceof TimeSlot)) {
-			throw new IllegalArgumentException("TimeSlot.compareTo: Not TimeSlot.");
-		}
-		
-			TimeSlot otherTime = (TimeSlot) otherObject;
-			int compareTime = otherTime.getTime();
-		if(time==compareTime) {
-			return 0;
-		}else if(time<compareTime) {
-			return -1;
-		}else{
-			return 1;
-		}
-		
-	}
 
 	@Override
 	public boolean equals(Object otherObject) {
@@ -90,12 +49,12 @@ public class TimeSlot implements Comparable {
 			return false;
 		}
 		return true;
+
 	}
 	
 	@Override
 	public String toString() {
-		String text = "Time "+time +" Dur: " + durationMinutes + " Room: " + room.getRoomId()+ " Class: " 
-	+ classEntry.getClassTitle() + " Teacher: " + teacher.getId();
+		String text = "Class: " + classEntry.getClassTitle() + " Teacher: " + teacher.getId();
 		return text;
 	}
 }
