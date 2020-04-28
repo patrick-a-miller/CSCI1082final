@@ -1,5 +1,6 @@
 package CalendarObjects;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -13,7 +14,7 @@ public class Year {
 		super();
 		this.year = year;
 		for (int i = 0; i < months.length; i++) {
-			months[i] = new Month(new GregorianCalendar(year.get(Calendar.YEAR), i, 0),roomArray);
+			months[i] = new Month(new GregorianCalendar(year.get(Calendar.YEAR), i+1, 0),roomArray);
 		}
 	}
 
@@ -32,7 +33,23 @@ public class Year {
 		this.months = months;
 	}
 
+	
+	public Month getMonth(int monthNumber) {
+		if(monthNumber<0 || monthNumber>11) {
+			return null;
+		}
+		return months[monthNumber];
+	}
 
-
+	@Override
+	public String toString() {
+		SimpleDateFormat timeFormat = new SimpleDateFormat("yyyyMMddHH");
+		String text= "Year: " + timeFormat.format(year.getTime())+ "\n";
+		for(int i = 0; i<months.length;i++) {
+			text+=months[i].toString()+"\n";
+		}
+		return text;
+		}
+	
 
 }

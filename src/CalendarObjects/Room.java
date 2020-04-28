@@ -56,14 +56,13 @@ public class Room implements Comparable{
 		Room otherRoom = (Room) otherObject;
 		if(roomId.equals(otherRoom.getRoomId())){
 			return true;
+		}else if(!roomName.contentEquals(otherRoom.getRoomName())){
+			return false;
+		}else if(capacity!=otherRoom.capacity) {
+			return false;
+		}else if(index!= otherRoom.index) {
+			return false;
 		}
-//		}else if(!roomName.contentEquals(otherRoom.getRoomName())){
-//			return false;
-//		}else if(capacity!=otherRoom.capacity) {
-//			return false;
-//		}else if(index!= otherRoom.index) {
-//			return false;
-//		}
 		return false;
 		
 	}
