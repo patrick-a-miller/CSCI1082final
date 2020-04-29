@@ -72,6 +72,7 @@ public class MainGUI extends JFrame {
 		leftPanel.add(btnAddButton);
 		
 		JButton btnRemoveButton = new JButton("Remove Event");
+		btnRemoveButton.setContentAreaFilled(false);
 		leftPanel.add(btnRemoveButton);
 		
 		
@@ -114,6 +115,7 @@ public class MainGUI extends JFrame {
 			JButton btnNewButton_i = new JButton("New button");
 			button_count++;
 			btnNewButton_i.setText(String.valueOf(button_count));
+			btnNewButton_i.setContentAreaFilled(false);
 			centerPanel.add(btnNewButton_i);
 			}
 		}
