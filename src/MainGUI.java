@@ -55,16 +55,16 @@ public class MainGUI extends JFrame {
 		textField = new JTextField();
 		leftPanel.add(textField);
 		
-		JComboBox<Day> comboBox = new JComboBox();
+		JComboBox comboBox = new JComboBox(Day);
 		leftPanel.add(comboBox);
 		
-		JComboBox<TimeSlot> comboBox_1 = new JComboBox();
+		JComboBox comboBox_1 = new JComboBox(TimeSlot);
 		leftPanel.add(comboBox_1);
 		
-		JComboBox<Teacher> comboBox_2 = new JComboBox();
+		JComboBox comboBox_2 = new JComboBox(Teacher);
 		leftPanel.add(comboBox_2);
 		
-		JComboBox<ClassEntry> comboBox_3 = new JComboBox();
+		JComboBox comboBox_3 = new JComboBox(ClassEntry);
 		leftPanel.add(comboBox_3);
 		
 		JButton btnAddButton = new JButton("Add Event");
