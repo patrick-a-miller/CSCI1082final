@@ -57,16 +57,16 @@ public class MainGUI extends JFrame {
 		textField = new JTextField();
 		leftPanel.add(textField);
 		
-		JComboBox comboBox = new JComboBox();
+		JComboBox comboBox = new JComboBox(Day);
 		leftPanel.add(comboBox);
 		
-		JComboBox comboBox_1 = new JComboBox();
+		JComboBox comboBox_1 = new JComboBox(TimeSlot);
 		leftPanel.add(comboBox_1);
 		
-		JComboBox comboBox_2 = new JComboBox();
+		JComboBox comboBox_2 = new JComboBox(Teacher);
 		leftPanel.add(comboBox_2);
 		
-		JComboBox comboBox_3 = new JComboBox();
+		JComboBox comboBox_3 = new JComboBox(ClassEntry);
 		leftPanel.add(comboBox_3);
 		
 		JButton btnAddButton = new JButton("Add Event");
@@ -130,7 +130,29 @@ public class MainGUI extends JFrame {
 		JComboBox comboBox_5 = new JComboBox();
 		rightPanel.add(comboBox_5);
 		
+		JPanel panel = new JPanel();
+		contentPane.add(panel, BorderLayout.NORTH);
 		
+		JLabel lblNewLabel = new JLabel("New label");
+		panel.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("New label");
+		panel.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("New label");
+		panel.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("New label");
+		panel.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_4 = new JLabel("New label");
+		panel.add(lblNewLabel_4);
+		
+		JLabel lblNewLabel_5 = new JLabel("New label");
+		panel.add(lblNewLabel_5);
+		
+		JLabel lblNewLabel_6 = new JLabel("New label");
+		panel.add(lblNewLabel_6);
 	}
 
 }
