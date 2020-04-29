@@ -98,7 +98,29 @@ public class MainGUI extends JFrame {
 		JComboBox comboBox_5 = new JComboBox();
 		rightPanel.add(comboBox_5);
 		
+		JPanel panel = new JPanel();
+		contentPane.add(panel, BorderLayout.NORTH);
 		
+		JLabel lblNewLabel = new JLabel("New label");
+		panel.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("New label");
+		panel.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("New label");
+		panel.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("New label");
+		panel.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_4 = new JLabel("New label");
+		panel.add(lblNewLabel_4);
+		
+		JLabel lblNewLabel_5 = new JLabel("New label");
+		panel.add(lblNewLabel_5);
+		
+		JLabel lblNewLabel_6 = new JLabel("New label");
+		panel.add(lblNewLabel_6);
 	}
 
 }
