@@ -57,16 +57,15 @@ public class MainGUI extends JFrame {
 		textField = new JTextField();
 		leftPanel.add(textField);
 		
-		JComboBox comboBox = new JComboBox(Day);
+		JComboBox comboBox = new JComboBox();
 		leftPanel.add(comboBox);
 		
-		JComboBox comboBox_1 = new JComboBox(TimeSlot);
-		leftPanel.add(comboBox_1);
+		JComboBox comboBox_1 = new JComboBox();
 		
-		JComboBox comboBox_2 = new JComboBox(Teacher);
+		JComboBox comboBox_2 = new JComboBox();
 		leftPanel.add(comboBox_2);
 		
-		JComboBox comboBox_3 = new JComboBox(ClassEntry);
+		JComboBox comboBox_3 = new JComboBox();
 		leftPanel.add(comboBox_3);
 		
 		JButton btnAddButton = new JButton("Add Event");
@@ -79,22 +78,22 @@ public class MainGUI extends JFrame {
 		textField.setColumns(10);
 		
 		JPanel centerPanel = new JPanel();
-		centerPanel.setLayout(new GridLayout(25, 7, 0, 0));
+		centerPanel.setLayout(new GridLayout(25, 8, 0, 0));
 		
 		JLabel columnLabel_blank = new JLabel(" ");
-		JLabel columnLabel1 = new JLabel("Mon");
+		JLabel columnLabel1 = new JLabel("Sun");
 		columnLabel1.setHorizontalAlignment(SwingConstants.CENTER);
-		JLabel columnLabel2 = new JLabel("Tue");
+		JLabel columnLabel2 = new JLabel("Mon");
 		columnLabel2.setHorizontalAlignment(SwingConstants.CENTER);
-		JLabel columnLabel3 = new JLabel("Wed");
+		JLabel columnLabel3 = new JLabel("Tue");
 		columnLabel3.setHorizontalAlignment(SwingConstants.CENTER);
-		JLabel columnLabel4 = new JLabel("Thu");
+		JLabel columnLabel4 = new JLabel("Wed");
 		columnLabel4.setHorizontalAlignment(SwingConstants.CENTER);
-		JLabel columnLabel5 = new JLabel("Fri");
+		JLabel columnLabel5 = new JLabel("Thu");
 		columnLabel5.setHorizontalAlignment(SwingConstants.CENTER);
-		JLabel columnLabel6 = new JLabel("Sat");
+		JLabel columnLabel6 = new JLabel("Fri");
 		columnLabel6.setHorizontalAlignment(SwingConstants.CENTER);
-		JLabel columnLabel7 = new JLabel("Sun");
+		JLabel columnLabel7 = new JLabel("Sat");
 		columnLabel7.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		centerPanel.add(columnLabel_blank);
@@ -106,13 +105,15 @@ public class MainGUI extends JFrame {
 		centerPanel.add(columnLabel6);
 		centerPanel.add(columnLabel7);
 		
+		int button_count = 0;
 		for (int i = 0; i < 192; i++) {
-			if(i%8==0) {
+						if(i%8==0) {
 			JLabel rowLabel_i = new JLabel(Integer.toString(i/8));
 			centerPanel.add(rowLabel_i);
 			}else {
 			JButton btnNewButton_i = new JButton("New button");
-			btnNewButton_i.setText(String.valueOf(i));
+			button_count++;
+			btnNewButton_i.setText(String.valueOf(button_count));
 			centerPanel.add(btnNewButton_i);
 			}
 		}
