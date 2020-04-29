@@ -2,6 +2,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.FlowLayout;
@@ -15,11 +16,14 @@ import javax.swing.JScrollPane;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MainGUI extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
+	private JTextField textField_1;
 
 	/**
 	 * Launch the application.
@@ -52,26 +56,24 @@ public class MainGUI extends JFrame {
 		contentPane.add(leftPanel, BorderLayout.WEST);
 		leftPanel.setLayout(new GridLayout(8, 1, 0, 0));
 		
-		textField = new JTextField();
-		leftPanel.add(textField);
-		
-		JComboBox comboBox = new JComboBox(Day);
-		leftPanel.add(comboBox);
-		
-		JComboBox comboBox_1 = new JComboBox(TimeSlot);
+		//user must type out date
+		textField_1 = new JTextField();
+		leftPanel.add(textField_1);
+		textField_1.setColumns(10);
+		textField_1.setText("MM/DD/YYYY");
+		//room box
+		JComboBox comboBox_1 = new JComboBox();
 		leftPanel.add(comboBox_1);
-		
-		JComboBox comboBox_2 = new JComboBox(Teacher);
+		//timeslot box
+		JComboBox comboBox_2 = new JComboBox();
 		leftPanel.add(comboBox_2);
+		//teacher box
+		JComboBox comboBox_5 = new JComboBox();
+		leftPanel.add(comboBox_5);
+		//class box
+		JComboBox comboBox_4 = new JComboBox();
+		leftPanel.add(comboBox_4);
 		
-		JComboBox comboBox_3 = new JComboBox(ClassEntry);
-		leftPanel.add(comboBox_3);
-		
-		JButton btnAddButton = new JButton("Add Event");
-		leftPanel.add(btnAddButton);
-		
-		JButton btnRemoveButton = new JButton("Remove Event");
-		leftPanel.add(btnRemoveButton);
 		
 		
 		textField.setColumns(10);
@@ -92,15 +94,27 @@ public class MainGUI extends JFrame {
 		contentPane.add(rightPanel, BorderLayout.EAST);
 		rightPanel.setLayout(new GridLayout(8, 0, 0, 0));
 		
-		JComboBox comboBox_4 = new JComboBox();
-		rightPanel.add(comboBox_4);
+		JButton btnAddButton = new JButton("Add Event");
+		rightPanel.add(btnAddButton);
 		
-		JComboBox comboBox_5 = new JComboBox();
-		rightPanel.add(comboBox_5);
+		JButton btnRemoveButton = new JButton("Remove Event");
+		rightPanel.add(btnRemoveButton);
+		
+		JButton btnNewButton = new JButton("Generate Next Year");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		rightPanel.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("Generate Last Year");
+		rightPanel.add(btnNewButton_1);
 		
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.NORTH);
 		
+		
+		//date labels at the top
 		JLabel lblNewLabel = new JLabel("New label");
 		panel.add(lblNewLabel);
 		
