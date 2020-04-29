@@ -2,6 +2,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.FlowLayout;
@@ -15,6 +16,7 @@ import javax.swing.JScrollPane;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class MainGUI extends JFrame {
 
@@ -77,12 +79,42 @@ public class MainGUI extends JFrame {
 		textField.setColumns(10);
 		
 		JPanel centerPanel = new JPanel();
-		centerPanel.setLayout(new GridLayout(24, 7, 0, 0));
+		centerPanel.setLayout(new GridLayout(25, 7, 0, 0));
 		
-		for (int i = 0; i < 168; i++) {
+		JLabel columnLabel_blank = new JLabel(" ");
+		JLabel columnLabel1 = new JLabel("Mon");
+		columnLabel1.setHorizontalAlignment(SwingConstants.CENTER);
+		JLabel columnLabel2 = new JLabel("Tue");
+		columnLabel2.setHorizontalAlignment(SwingConstants.CENTER);
+		JLabel columnLabel3 = new JLabel("Wed");
+		columnLabel3.setHorizontalAlignment(SwingConstants.CENTER);
+		JLabel columnLabel4 = new JLabel("Thu");
+		columnLabel4.setHorizontalAlignment(SwingConstants.CENTER);
+		JLabel columnLabel5 = new JLabel("Fri");
+		columnLabel5.setHorizontalAlignment(SwingConstants.CENTER);
+		JLabel columnLabel6 = new JLabel("Sat");
+		columnLabel6.setHorizontalAlignment(SwingConstants.CENTER);
+		JLabel columnLabel7 = new JLabel("Sun");
+		columnLabel7.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		centerPanel.add(columnLabel_blank);
+		centerPanel.add(columnLabel1);
+		centerPanel.add(columnLabel2);
+		centerPanel.add(columnLabel3);
+		centerPanel.add(columnLabel4);
+		centerPanel.add(columnLabel5);
+		centerPanel.add(columnLabel6);
+		centerPanel.add(columnLabel7);
+		
+		for (int i = 0; i < 192; i++) {
+			if(i%8==0) {
+			JLabel rowLabel_i = new JLabel(Integer.toString(i/8));
+			centerPanel.add(rowLabel_i);
+			}else {
 			JButton btnNewButton_i = new JButton("New button");
 			btnNewButton_i.setText(String.valueOf(i));
 			centerPanel.add(btnNewButton_i);
+			}
 		}
 		
 		JScrollPane scrollPane = new JScrollPane(centerPanel);
