@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import CalendarFiles.ClassDictionary;
+import CalendarFiles.RoomDictionary;
+import CalendarFiles.TeacherDictionary;
+
 public class CalendarTop {
 
 	private ArrayList<Year> yearList;
@@ -13,13 +17,26 @@ public class CalendarTop {
 	private Day selectedDay;
 	private CalendarRoom selectedCalendarRoom;
 	private TimeSlot selectedTimeSlot;
+	
+	private TeacherDictionary teacherDictionary;
+	private RoomDictionary roomDictionary;      
+	private ClassDictionary classDictionary; 
+	
 	private Room[] roomArray;
 	private SimpleDateFormat timeFormat = new SimpleDateFormat("yyyyMMddHH");
 
-	public CalendarTop(Room[] roomArray) {
-		setupYearList(roomArray);
+	public CalendarTop() {
+		setupDictionaries();
+		setupYearList(roomDictionary.getRoomArray());
 		setupDefaultSelections();
+	}
 
+	private void setupDictionaries() {
+		CalendarFiles.DefaultFileSetup.maybeSetUpFiles();
+		teacherDictionary = new TeacherDictionary();
+		roomDictionary = new RoomDictionary();
+		classDictionary = new ClassDictionary();
+		
 	}
 
 	private void setupYearList(Room[] roomArray) {
@@ -200,6 +217,43 @@ public class CalendarTop {
 		int hourNumber = Integer.parseInt(yearString.substring(8, 10));
 		return hourNumber;
 	}
+	
+	
+	
+	
+	/**
+	 * @return the teacherDictionary
+	 */
+	public TeacherDictionary getTeacherDictionary() {
+		return teacherDictionary;
+	}
+
+	/**
+	 * @return the roomDictionary
+	 */
+	public RoomDictionary getRoomDictionary() {
+		return roomDictionary;
+	}
+
+	/**
+	 * @return the classDictionary
+	 */
+	public ClassDictionary getClassDictionary() {
+		return classDictionary;
+	}
+
+	public Room[] getRoomArray() {
+		return roomDictionary.getRoomArray();
+	}
+	
+	public Teacher[] getTeacherArray() {
+		return teacherDictionary.getTeacherArray();
+	}
+	
+	public ClassEntry[] getClassEntryArray() {
+		return classDictionary.getClassEntryArray();
+	}
+	
 	
 	@Override
 	public String toString() {

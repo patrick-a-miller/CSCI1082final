@@ -84,6 +84,7 @@ public class MainGUI extends JFrame {
 		centerPanel.setLayout(new GridLayout(25, 8, 0, 0));
 		
 		JLabel columnLabel_blank = new JLabel(" ");
+		columnLabel_blank.setHorizontalAlignment(SwingConstants.CENTER);
 		JLabel columnLabel1 = new JLabel("Sun");
 		columnLabel1.setHorizontalAlignment(SwingConstants.CENTER);
 		JLabel columnLabel2 = new JLabel("Mon");
@@ -112,6 +113,7 @@ public class MainGUI extends JFrame {
 		for (int i = 0; i < 192; i++) {
 						if(i%8==0) {
 			JLabel rowLabel_i = new JLabel(Integer.toString(i/8));
+			rowLabel_i.setHorizontalAlignment(SwingConstants.CENTER);
 			centerPanel.add(rowLabel_i);
 			}else {
 			JButton btnNewButton_i = new JButton("New button");
@@ -167,6 +169,7 @@ public class MainGUI extends JFrame {
 		rightPanel.add(btnNewButton_3);
 		
 		
+
 	}
 
 }
