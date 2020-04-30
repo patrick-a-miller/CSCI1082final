@@ -17,6 +17,9 @@ import java.awt.Dimension;
 import java.awt.Rectangle;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JProgressBar;
 
 public class MainGUI extends JFrame {
 
@@ -55,28 +58,27 @@ public class MainGUI extends JFrame {
 		leftPanel.setLayout(new GridLayout(8, 1, 0, 0));
 		
 		textField = new JTextField();
-		leftPanel.add(textField);
+		leftPanel.add(textField);//date box
 		
 		JComboBox comboBox = new JComboBox();
-		leftPanel.add(comboBox);
+		leftPanel.add(comboBox);//tiemslot
 		
-		JComboBox comboBox_1 = new JComboBox();
+		JComboBox comboBox_1 = new JComboBox();//room
 		
-		JComboBox comboBox_2 = new JComboBox();
+		JComboBox comboBox_2 = new JComboBox();//teacher
 		leftPanel.add(comboBox_2);
 		
-		JComboBox comboBox_3 = new JComboBox();
+		JComboBox comboBox_3 = new JComboBox();//classentry
 		leftPanel.add(comboBox_3);
-		
-		JButton btnAddButton = new JButton("Add Event");
-		leftPanel.add(btnAddButton);
-		
-		JButton btnRemoveButton = new JButton("Remove Event");
-		btnRemoveButton.setContentAreaFilled(false);
-		leftPanel.add(btnRemoveButton);
 		
 		
 		textField.setColumns(10);
+		
+		JComboBox comboBox_5 = new JComboBox();
+		leftPanel.add(comboBox_5);
+		
+		JComboBox comboBox_4 = new JComboBox();
+		leftPanel.add(comboBox_4);
 		
 		JPanel centerPanel = new JPanel();
 		centerPanel.setLayout(new GridLayout(25, 8, 0, 0));
@@ -127,35 +129,44 @@ public class MainGUI extends JFrame {
 		contentPane.add(rightPanel, BorderLayout.EAST);
 		rightPanel.setLayout(new GridLayout(8, 0, 0, 0));
 		
-		JComboBox comboBox_4 = new JComboBox();
-		rightPanel.add(comboBox_4);
+		JButton btnAddButton = new JButton("Add Event");
+		rightPanel.add(btnAddButton);
 		
-		JComboBox comboBox_5 = new JComboBox();
-		rightPanel.add(comboBox_5);
+		JButton btnRemoveButton = new JButton("Remove Event");
+		btnRemoveButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		rightPanel.add(btnRemoveButton);
 		
-		JPanel panel = new JPanel();
-		contentPane.add(panel, BorderLayout.NORTH);
 		
-		JLabel lblNewLabel = new JLabel("New label");
-		panel.add(lblNewLabel);
+		JButton btnNewButton = new JButton("Generate Next year");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		rightPanel.add(btnNewButton);
 		
-		JLabel lblNewLabel_1 = new JLabel("New label");
-		panel.add(lblNewLabel_1);
+		JButton btnNewButton_1 = new JButton("Generate last year");
+		rightPanel.add(btnNewButton_1);
 		
-		JLabel lblNewLabel_2 = new JLabel("New label");
-		panel.add(lblNewLabel_2);
+		JLabel lblNewLabel = new JLabel("");
+		rightPanel.add(lblNewLabel);
 		
-		JLabel lblNewLabel_3 = new JLabel("New label");
-		panel.add(lblNewLabel_3);
+		JLabel label = new JLabel("");
+		rightPanel.add(label);
 		
-		JLabel lblNewLabel_4 = new JLabel("New label");
-		panel.add(lblNewLabel_4);
+		JButton btnNewButton_2 = new JButton("Forward 1 Week");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		rightPanel.add(btnNewButton_2);
 		
-		JLabel lblNewLabel_5 = new JLabel("New label");
-		panel.add(lblNewLabel_5);
+		JButton btnNewButton_3 = new JButton("Backward 1 Week");
+		rightPanel.add(btnNewButton_3);
 		
-		JLabel lblNewLabel_6 = new JLabel("New label");
-		panel.add(lblNewLabel_6);
+		
 	}
 
 }
