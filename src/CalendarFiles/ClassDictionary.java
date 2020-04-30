@@ -120,6 +120,10 @@ public class ClassDictionary extends DictionaryFile {
 		return trimArray;
 	}
 
+	public ClassEntry[] getClassEntryArray() {
+		return classArray;
+	}
+	
 	public ClassEntry getCurrentClass() {
 		return currentClass;
 	}

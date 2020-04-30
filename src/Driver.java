@@ -6,9 +6,9 @@ import CalendarFiles.RoomDictionary;
 import CalendarFiles.TeacherDictionary;
 import CalendarObjects.CalendarRoom;
 import CalendarObjects.ClassEntry;
-import CalendarObjects.DayMonthYear;
 import CalendarObjects.Room;
 import CalendarObjects.Teacher;
+import CalendarObjects.CalendarTop;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -35,9 +35,13 @@ public class Driver {
 	static ClassDictionary classes; 
 	static CalendarRoom[] calendarRooms;
 
+	static CalendarTop mainCalendar; 
+	
 	public static void main(String[] args) {
-		setUpFiles();
-		setupDictionaries();
+		//setUpFiles();
+		mainCalendar= new CalendarTop();
+		//setupDictionaries();
+		printDictionaries();
 			String mainLoop = "y";
 			//Date date = new Date();
 			while(mainLoop.equals("y")) {
@@ -109,6 +113,14 @@ addTimeSlot(year,month,day,time);
 				System.out.println("Shutting down...");
 			}
 		}
+
+	private static void printDictionaries() {
+		System.out.println(mainCalendar.getTeacherDictionary());
+		System.out.println(mainCalendar.getRoomDictionary());
+		System.out.println(mainCalendar.getClassDictionary());
+		//System.out.println(mainCalendar);
+		
+	}
 
 	public static void setupDictionaries() {
 		teachers = new TeacherDictionary();

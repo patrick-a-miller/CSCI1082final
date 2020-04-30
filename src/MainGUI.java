@@ -68,7 +68,7 @@ public class MainGUI extends JFrame {
 		JComboBox comboBox_3 = new JComboBox();
 		leftPanel.add(comboBox_3);
 		
-		JButton btnAddButton = new JButton("Add Event");
+		JButton btnAddButton = new JButton("<html>Add Event<br>\r\nNew Text</html>");
 		leftPanel.add(btnAddButton);
 		
 		JButton btnRemoveButton = new JButton("Remove Event");

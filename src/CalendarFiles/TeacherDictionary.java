@@ -89,6 +89,10 @@ public class TeacherDictionary extends DictionaryFile {
 			currentTeacher = teacherArray[index];
 		}
 	}
+	
+	public Teacher[] getTeacherArray() {
+		return teacherArray;
+	}
 
 	@Override
 	public String toString() {
