@@ -59,6 +59,7 @@ public class MainGUI extends JFrame {
 		
 		textField = new JTextField();
 		leftPanel.add(textField);//date box
+		textField.setText("MM/DD/YYYY");
 		
 		JComboBox comboBox = new JComboBox();
 		leftPanel.add(comboBox);//tiemslot
@@ -76,9 +77,6 @@ public class MainGUI extends JFrame {
 		
 		JComboBox comboBox_5 = new JComboBox();
 		leftPanel.add(comboBox_5);
-		
-		JComboBox comboBox_4 = new JComboBox();
-		leftPanel.add(comboBox_4);
 		
 		JPanel centerPanel = new JPanel();
 		centerPanel.setLayout(new GridLayout(25, 8, 0, 0));
@@ -133,10 +131,17 @@ public class MainGUI extends JFrame {
 		
 		JButton btnAddButton = new JButton("Add Event");
 		rightPanel.add(btnAddButton);
+		btnAddButton.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
 		
 		JButton btnRemoveButton = new JButton("Remove Event");
 		btnRemoveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
 			}
 		});
 		rightPanel.add(btnRemoveButton);
@@ -152,11 +157,11 @@ public class MainGUI extends JFrame {
 		JButton btnNewButton_1 = new JButton("Generate last year");
 		rightPanel.add(btnNewButton_1);
 		
+		JButton btnDetailView = new JButton("Detail view");
+		rightPanel.add(btnDetailView);
+		
 		JLabel lblNewLabel = new JLabel("");
 		rightPanel.add(lblNewLabel);
-		
-		JLabel label = new JLabel("");
-		rightPanel.add(label);
 		
 		JButton btnNewButton_2 = new JButton("Forward 1 Week");
 		btnNewButton_2.addActionListener(new ActionListener() {
