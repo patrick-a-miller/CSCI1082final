@@ -47,6 +47,12 @@ public class Day{
 		}
 		return null;
 	}
+	
+	public String textFieldFormat() {
+		SimpleDateFormat fieldFormat = new SimpleDateFormat("MM/dd/yyyy");
+		return fieldFormat.format(day.getTime());
+		
+	}
 
 public String toString() {
 	SimpleDateFormat timeFormat = new SimpleDateFormat("yyyyMMddHH");
