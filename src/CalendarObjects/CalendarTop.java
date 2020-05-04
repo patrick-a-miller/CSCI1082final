@@ -364,6 +364,7 @@ public class CalendarTop {
 						weekButtonText[dayIndex + hourIndex * 7] = timeFormat.format(weekDay.getTime()) + "."
 								+ selectRoom.getRoomId() + "." + weekTimeSlots[slotCount].buttonTextFormat();
 					}
+					slotCount++;
 					weekDay.add(Calendar.HOUR_OF_DAY, 1);
 				}
 			}
@@ -389,7 +390,8 @@ public class CalendarTop {
 			CalendarRoom indexRoom = weekOfDays[i].getCalendarRoom(selectRoom);
 			TimeSlot[] indexTimeSlots = indexRoom.getTimeSlots();
 			for (int j = 0; j < 24; j++) {
-				weekTimeSlots[slotCount++] = indexTimeSlots[j];
+				weekTimeSlots[slotCount] = indexTimeSlots[j];
+				slotCount++;
 			}
 		}
 		return weekTimeSlots;

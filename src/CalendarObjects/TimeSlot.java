@@ -79,7 +79,7 @@ public class TimeSlot implements Comparable {
 	}
 	
 	public String buttonTextFormat(){
-		String buttonText = "<html>"+teacher.getId()+"<br>"+room.getRoomId()+"</html>";
+		String buttonText = "<html>"+teacher.getName()+"<br>"+classEntry.getClassTitle()+"</html>";
 		return buttonText;
 	}
 	

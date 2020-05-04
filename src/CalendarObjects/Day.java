@@ -48,6 +48,11 @@ public class Day{
 		return null;
 	}
 	
+	public String getYearMonthDayHourFormat() {
+		SimpleDateFormat timeFormat = new SimpleDateFormat("yyyyMMddHH");
+		return timeFormat.format(day.getTime());
+	}
+	
 	public String textFieldFormat() {
 		SimpleDateFormat fieldFormat = new SimpleDateFormat("MM/dd/yyyy");
 		return fieldFormat.format(day.getTime());
