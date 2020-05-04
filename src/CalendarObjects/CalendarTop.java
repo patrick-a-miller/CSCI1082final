@@ -2,6 +2,7 @@ package CalendarObjects;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -17,7 +18,7 @@ public class CalendarTop {
 	private Day selectedDay;
 	private CalendarRoom selectedCalendarRoom;
 	private TimeSlot selectedTimeSlot;
-
+		
 	private TeacherDictionary teacherDictionary;
 	private RoomDictionary roomDictionary;
 	private ClassDictionary classDictionary;
@@ -64,11 +65,18 @@ public class CalendarTop {
 				return;
 			}
 		}
-		searchYearList(yearNumber);
+		Year newYear = searchYearList(yearNumber);
+		if(newYear!=null) {
+			selectedYear=newYear;
+			selectedMonth = null;
+			selectedDay = null;
+			selectedCalendarRoom = null;
+			selectedTimeSlot = null;
+		}
 
 	}
 
-	private void searchYearList(int yearNumber) {
+	private Year searchYearList(int yearNumber) {
 		int insertIndex = -1;
 		for (int i = 0; i < yearList.size(); i++) {
 			Year indexYear = yearList.get(i);
@@ -76,7 +84,7 @@ public class CalendarTop {
 				int indexYearNumber = convertYearToYearNumber(indexYear);
 				if (yearNumber == indexYearNumber) {
 					selectedYear = indexYear;
-					return;
+					return selectedYear;
 				} else if (yearNumber < indexYearNumber) {
 					insertIndex = i;
 					break;
@@ -89,11 +97,7 @@ public class CalendarTop {
 		}else {
 		insertNewYear(yearNumber, insertIndex);
 		}
-		selectedYear = yearList.get(insertIndex);
-		selectedMonth = null;
-		selectedDay = null;
-		selectedCalendarRoom = null;
-		selectedTimeSlot = null;
+		return yearList.get(insertIndex);
 
 	}
 
@@ -256,7 +260,49 @@ public class CalendarTop {
 		GregorianCalendar newDay = new GregorianCalendar(year, month - 1, day, hour, 0);
 		return timeFormat.format(newDay.getTime());
 	}
-
+	
+	public String[] getSelectedWeekLabelText() {
+		Day[] weekOfDays = getWeekForSelectedDay();
+		String [] weekLabels = {"Sun","Mon","Tue","Wed","Thu","Fri","Sat"};
+		for(int i = 0; i<weekLabels.length; i++) {
+			weekLabels[i]= "<html>"+weekLabels[i]+"<br>"+weekOfDays[i].textLabelFormat()+"</html>";
+		}
+		return weekLabels;
+		
+	}
+	
+	public Day[] getWeekForSelectedDay() {
+		if(selectedDay==null) {
+			return null;
+		}
+		Day[] weekOfDays = new Day[7];
+		//day of week starts at 1, not 0
+		int selectedDayOfWeek = selectedDay.getDay().get(Calendar.DAY_OF_WEEK);
+		int dayWeekOffset = 1-selectedDayOfWeek;
+		int currentYear =selectedDay.getDay().get(Calendar.YEAR);
+		int currentMonth = selectedDay.getDay().get(Calendar.MONTH);
+		int currentDayOfMonth = selectedDay.getDay().get(Calendar.DAY_OF_MONTH);
+		GregorianCalendar weekDay = new GregorianCalendar(currentYear,currentMonth,currentDayOfMonth+dayWeekOffset);
+		for(int index=0;index<7;index++) {
+			Year indexYear=selectedYear;
+			Month indexMonth=selectedMonth;
+			//check if week crosses year boundary
+			if(weekDay.get(Calendar.YEAR)!=currentYear) {
+				indexYear=searchYearList(weekDay.get(Calendar.YEAR));
+			}
+			//check if week crosses month boundary
+			if(weekDay.get(Calendar.MONTH)!=currentMonth) {
+				indexMonth=indexYear.getMonth(weekDay.get(Calendar.MONTH));
+			}
+			//getday
+			weekOfDays[index]=indexMonth.getDay(weekDay.get(Calendar.DAY_OF_MONTH));
+			weekDay.add(Calendar.DAY_OF_YEAR, 1);
+			
+		}
+		
+		return weekOfDays;
+	}
+	
 	/**
 	 * @return the selectedYear
 	 */

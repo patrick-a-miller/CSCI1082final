@@ -105,24 +105,26 @@ public class MainGUI extends JFrame {
 		JPanel centerPanel = new JPanel();
 		centerPanel.setLayout(new GridLayout(25, 8, 0, 0));
 
+		String labelText[] = getScrollLabelText();
 		columnLabel_blank = new JLabel(" ");
 		columnLabel_blank.setHorizontalAlignment(SwingConstants.CENTER);
-		columnLabel1 = new JLabel("Sun");
+		columnLabel1 = new JLabel(labelText[0]);
 		columnLabel1.setHorizontalAlignment(SwingConstants.CENTER);
-		columnLabel2 = new JLabel("Mon");
+		columnLabel2 = new JLabel(labelText[1]);
 		columnLabel2.setHorizontalAlignment(SwingConstants.CENTER);
-		columnLabel3 = new JLabel("Tue");
+		columnLabel3 = new JLabel(labelText[2]);
 		columnLabel3.setHorizontalAlignment(SwingConstants.CENTER);
-		columnLabel4 = new JLabel("Wed");
+		columnLabel4 = new JLabel(labelText[3]);
 		columnLabel4.setHorizontalAlignment(SwingConstants.CENTER);
-		columnLabel5 = new JLabel("Thu");
+		columnLabel5 = new JLabel(labelText[4]);
 		columnLabel5.setHorizontalAlignment(SwingConstants.CENTER);
-		columnLabel6 = new JLabel("Fri");
+		columnLabel6 = new JLabel(labelText[5]);
 		columnLabel6.setHorizontalAlignment(SwingConstants.CENTER);
-		columnLabel7 = new JLabel("Sat");
+		columnLabel7 = new JLabel(labelText[6]);
 		columnLabel7.setHorizontalAlignment(SwingConstants.CENTER);
 
 		int dayHighlight = mainCalendar.getSelectedDay().getDay().get(Calendar.DAY_OF_WEEK);
+		
 		setScrollLabelColor(dayHighlight);
 
 		centerPanel.add(columnLabel_blank);
@@ -187,6 +189,11 @@ public class MainGUI extends JFrame {
 		rightPanel.add(btnNewButton_3);
 
 	}
+	
+	private String[] getScrollLabelText() {
+		String[] weekLabels = mainCalendar.getSelectedWeekLabelText();
+		return weekLabels;
+	}
 
 	private void setScrollLabelColor(int dayHighlight) {
 
@@ -229,6 +236,20 @@ public class MainGUI extends JFrame {
 			break;
 		}
 
+	}
+	
+	private void updateScrollLabelText() {
+		String labelText[] = getScrollLabelText();
+		
+		columnLabel1.setText(labelText[0]);
+		columnLabel2.setText(labelText[1]);
+		columnLabel3.setText(labelText[2]);
+		columnLabel4.setText(labelText[3]);
+		columnLabel5.setText(labelText[4]);
+		columnLabel6.setText(labelText[5]);
+		columnLabel7.setText(labelText[6]);
+		
+		
 	}
 
 	private void initializeScrollButtons(JPanel centerPanel, int dayHighlight) {
@@ -294,9 +315,10 @@ public class MainGUI extends JFrame {
 				}
 				
 				int dayHighlight = mainCalendar.getSelectedDay().getDay().get(Calendar.DAY_OF_WEEK);
+				updateScrollLabelText();
 				setScrollLabelColor(dayHighlight);
 				updateScrollButtonColor(scrollButtonArray,dayHighlight);
-				
+								
 			}
 
 		}
