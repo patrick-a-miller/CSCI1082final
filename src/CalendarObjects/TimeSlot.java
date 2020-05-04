@@ -54,6 +54,30 @@ public class TimeSlot implements Comparable {
 		this.teacher = teacher;
 	}
 	
+	public static String[] getTimeArray() {
+	String[] hourTimes = new String[24];
+	for(int index = 0; index<hourTimes.length;index++) {
+		hourTimes[index] = convertSlotTime(index);
+	}
+	return hourTimes;
+	}
+	
+	public static String convertSlotTime(int hour) {
+		if(hour==0) {
+			return "12:00am";
+		}else if(hour<10) {
+			return "0"+Integer.toString(hour)+":00am";
+		}else if(hour<12) {
+			return Integer.toString(hour)+":00am";
+		}else if(hour==12) {
+			return Integer.toString(hour)+":00pm";
+		}else if(hour>12&&hour<22) {
+			return "0"+Integer.toString(hour-12)+":00pm";
+		}else {
+			return Integer.toString(hour-12)+":00pm";
+		}
+	}
+	
 	@Override
 	public int compareTo(Object otherObject) {
 		if(!(otherObject instanceof TimeSlot)) {

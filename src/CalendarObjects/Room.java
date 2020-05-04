@@ -44,7 +44,8 @@ public class Room implements Comparable{
 			
 	@Override
 	public String toString() {
-		String text = "Room: "+roomId+" Capacity: "+capacity + " Index: "+index;
+		//String text = "Room: "+roomId+" Capacity: "+capacity + " Index: "+index;
+		String text = "Room: "+roomId;
 		return text;
 	}
 	
