@@ -5,6 +5,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import CalendarObjects.CalendarTop;
+import CalendarObjects.TimeSlot;
+
 import java.awt.FlowLayout;
 import javax.swing.JScrollBar;
 import java.awt.GridLayout;
@@ -25,6 +29,7 @@ public class MainGUI extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
+	private CalendarTop mainCalendar;
 
 	/**
 	 * Launch the application.
@@ -46,6 +51,7 @@ public class MainGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public MainGUI() {
+		mainCalendar = new CalendarTop();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 794, 575);
 		contentPane = new JPanel();
@@ -61,15 +67,17 @@ public class MainGUI extends JFrame {
 		leftPanel.add(textField);//date box
 		textField.setText("MM/DD/YYYY");
 		
-		JComboBox comboBox = new JComboBox();
+			
+		JComboBox comboBox = new JComboBox(TimeSlot.getTimeArray());
 		leftPanel.add(comboBox);//tiemslot
 		
-		JComboBox comboBox_1 = new JComboBox();//room
+		JComboBox comboBox_1 = new JComboBox(mainCalendar.getRoomArray());//room
+		leftPanel.add(comboBox_1);
 		
-		JComboBox comboBox_2 = new JComboBox();//teacher
+		JComboBox comboBox_2 = new JComboBox(mainCalendar.getTeacherArray());//teacher
 		leftPanel.add(comboBox_2);
 		
-		JComboBox comboBox_3 = new JComboBox();//classentry
+		JComboBox comboBox_3 = new JComboBox(mainCalendar.getClassEntryArray());//classentry
 		leftPanel.add(comboBox_3);
 		
 		
@@ -110,7 +118,7 @@ public class MainGUI extends JFrame {
 		int button_count = 0;
 		for (int i = 0; i < 192; i++) {
 						if(i%8==0) {
-			JLabel rowLabel_i = new JLabel(Integer.toString(i/8));
+			JLabel rowLabel_i = new JLabel(TimeSlot.convertSlotTime(i/8));
 			rowLabel_i.setHorizontalAlignment(SwingConstants.CENTER);
 			centerPanel.add(rowLabel_i);
 			}else {

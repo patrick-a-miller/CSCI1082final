@@ -62,15 +62,16 @@ public class ClassEntry implements Comparable {
 	
 	@Override
 	public String toString() {
-		String text = "Class: "+ classTitle +"\n";
-		text+= "Teacher: "+ teacher+"\n";
-		text+= "Schedule: " + classSchedule +"\n";
-		text+= "Count: " + studentCount+"\n";
-		text+= "Students: \n";
-		for(String current:studentList) {
-			text+=current+"\n";
-		}
-		text+= "Index: "+index+"\n";
+//		String text = "Class: "+ classTitle +"\n";
+//		text+= "Teacher: "+ teacher+"\n";
+//		text+= "Schedule: " + classSchedule +"\n";
+//		text+= "Count: " + studentCount+"\n";
+//		text+= "Students: \n";
+//		for(String current:studentList) {
+//			text+=current+"\n";
+//		}
+//		text+= "Index: "+index+"\n";
+		String text = "Class: "+ classTitle;
 		return text;
 	}
 	
