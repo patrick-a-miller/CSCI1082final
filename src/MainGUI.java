@@ -8,7 +8,9 @@ import javax.swing.border.EmptyBorder;
 
 import CalendarObjects.CalendarRoom;
 import CalendarObjects.CalendarTop;
+import CalendarObjects.ClassEntry;
 import CalendarObjects.Room;
+import CalendarObjects.Teacher;
 import CalendarObjects.TimeSlot;
 
 import java.awt.FlowLayout;
@@ -40,12 +42,12 @@ public class MainGUI extends JFrame {
 	private CalendarTop mainCalendar;
 	private static final int SCROLL_GRID_SIZE = 192;
 	private JButton[] scrollButtonArray = new JButton[SCROLL_GRID_SIZE];
-	
+
 	JComboBox comboBox;
 	JComboBox comboBox_1;
 	JComboBox comboBox_2;
 	JComboBox comboBox_3;
-		
+
 	private JLabel columnLabel_blank;
 	private JLabel columnLabel1;
 	private JLabel columnLabel2;
@@ -92,10 +94,12 @@ public class MainGUI extends JFrame {
 		textDateField.setActionCommand("textDateField");
 		textDateField.addActionListener(new TextListener());
 		leftPanel.add(textDateField);
-		textDateField.setText("MM/DD/YYYY");
+		textDateField.setText(mainCalendar.getSelectedDay().textFieldFormat());
 
 		// timeslot
 		comboBox = new JComboBox(TimeSlot.getTimeArray());
+		comboBox.setActionCommand("TimeComboBox");
+		comboBox.addActionListener(new ComboBoxListener());
 		leftPanel.add(comboBox);
 
 		// room
@@ -159,26 +163,14 @@ public class MainGUI extends JFrame {
 
 		JButton btnAddButton = new JButton("Add Event");
 		rightPanel.add(btnAddButton);
-		btnAddButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-
-			}
-		});
+		btnAddButton.addActionListener(new PanelButtonListener());
 
 		JButton btnRemoveButton = new JButton("Remove Event");
-		btnRemoveButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-
-			}
-		});
+		btnRemoveButton.addActionListener(new PanelButtonListener());
 		rightPanel.add(btnRemoveButton);
 
 		JButton btnNewButton = new JButton("Generate Next year");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
+		btnNewButton.addActionListener(new PanelButtonListener());
 		rightPanel.add(btnNewButton);
 
 		JButton btnNewButton_1 = new JButton("Generate last year");
@@ -352,7 +344,7 @@ public class MainGUI extends JFrame {
 					mainCalendar.selectDay(yearString);
 					textDateField.setText(mainCalendar.getSelectedDay().textFieldFormat());
 				}
-
+				// update GUI elements with data corresponding to new date
 				int dayHighlight = mainCalendar.getSelectedDay().getDay().get(Calendar.DAY_OF_WEEK);
 				updateScrollLabelText();
 				setScrollLabelColor(dayHighlight);
@@ -364,17 +356,34 @@ public class MainGUI extends JFrame {
 		}
 
 	}
-	
-	public class ComboBoxListener implements ActionListener{
+
+	public class ComboBoxListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-		Room roomSelection = (Room)comboBox_1.getSelectedItem();
-		mainCalendar.changeSelectedRoom(roomSelection);
-		updateScrollButtonText();
-			
+			String buttonCommand = e.getActionCommand();
+			if (buttonCommand == "RoomComboBox") {
+				Room roomSelection = (Room) comboBox_1.getSelectedItem();
+				mainCalendar.changeSelectedRoom(roomSelection);
+				updateScrollButtonText();
+			}else if(buttonCommand== "TimeComboBox") {
+				String yearString=buildYearString();
+				Room roomSelection =(Room) comboBox_1.getSelectedItem();
+				mainCalendar.selectTimeSlot(yearString, roomSelection);
+				updateScrollButtonText();
+			}
+
 		}
-		
+	}
+	
+	private String buildYearString() {
+		int index = comboBox.getSelectedIndex();
+		String dateString = mainCalendar.getSelectedDay().getYearMonthDayHourFormat();
+		int dateNumber = Integer.parseInt(dateString);
+		dateNumber=dateNumber/100*100;
+		dateNumber+=index;
+		dateString=Integer.toString(dateNumber);
+		return dateString;
 	}
 
 	public class ScrollButtonListener implements ActionListener {
@@ -382,8 +391,8 @@ public class MainGUI extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			Pattern splitCommand = Pattern.compile("\\.");
-			String buttonCommand=e.getActionCommand();
-			String[] buttonSplit= splitCommand.split(buttonCommand);
+			String buttonCommand = e.getActionCommand();
+			String[] buttonSplit = splitCommand.split(buttonCommand);
 			mainCalendar.selectTimeSlot(buttonSplit[0], buttonSplit[1]);
 			textDateField.setText(mainCalendar.getSelectedDay().textFieldFormat());
 			comboBox.setSelectedIndex(Integer.parseInt(buttonSplit[0].substring(8)));
@@ -391,12 +400,41 @@ public class MainGUI extends JFrame {
 			setScrollLabelColor(dayHighlight);
 			updateScrollButtonText();
 			updateScrollButtonColor(dayHighlight);
+
+		}
+
+	}
+
+	public class PanelButtonListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
 			
+			String buttonCommand = e.getActionCommand();
+			if (buttonCommand == "Add Event") {
+				String yearString = buildYearString();
+				Room roomSelection =(Room) comboBox_1.getSelectedItem();
+				mainCalendar.selectRoom(yearString, roomSelection);
+				int time = comboBox.getSelectedIndex();
+				ClassEntry classEntry=(ClassEntry) comboBox_3.getSelectedItem();
+				Teacher teacher = (Teacher) comboBox_2.getSelectedItem();
+				mainCalendar.getSelectedCalendarRoom().addTimeSlot(time, classEntry, teacher);
+				
+				updateScrollButtonText();
+
+			} else if (buttonCommand == "Remove Event") {
+				String yearString = buildYearString();
+				Room roomSelection =(Room) comboBox_1.getSelectedItem();
+				mainCalendar.selectRoom(yearString, roomSelection);
+				int time = comboBox.getSelectedIndex();
+				mainCalendar.getSelectedCalendarRoom().removeTimeSlot(time);
+				
+				updateScrollButtonText();
+
+			}
 
 		}
 
 	}
 
 }
-
-

@@ -13,6 +13,7 @@ public class CalendarRoom {
 
 	
 	public CalendarRoom(GregorianCalendar day, Room room) {
+		this.day=day;
 		this.room = room;
 		timeSlots = new TimeSlot[SLOTS_PER_DAY];
 
@@ -72,7 +73,7 @@ public class CalendarRoom {
 	}
 	
 	
-	public boolean addTimeSlot(int time, Room room, ClassEntry classEntry, Teacher teacher) {
+	public boolean addTimeSlot(int time, ClassEntry classEntry, Teacher teacher) {
 		if ((0 > time || time > 23)) {
 			System.out.println("INVALID TIME!");
 			return false;
