@@ -53,6 +53,12 @@ public class Day{
 		return fieldFormat.format(day.getTime());
 		
 	}
+	
+	public String textLabelFormat() {
+		SimpleDateFormat labelFormat = new SimpleDateFormat("MM/dd");
+		return labelFormat.format(day.getTime());
+	}
+		
 
 public String toString() {
 	SimpleDateFormat timeFormat = new SimpleDateFormat("yyyyMMddHH");
