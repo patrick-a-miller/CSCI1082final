@@ -78,6 +78,11 @@ public class TimeSlot implements Comparable {
 		}
 	}
 	
+	public String buttonTextFormat(){
+		String buttonText = "<html>"+teacher.getId()+"<br>"+room.getRoomId()+"</html>";
+		return buttonText;
+	}
+	
 	@Override
 	public int compareTo(Object otherObject) {
 		if(!(otherObject instanceof TimeSlot)) {

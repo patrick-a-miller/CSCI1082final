@@ -18,7 +18,7 @@ public class CalendarTop {
 	private Day selectedDay;
 	private CalendarRoom selectedCalendarRoom;
 	private TimeSlot selectedTimeSlot;
-		
+
 	private TeacherDictionary teacherDictionary;
 	private RoomDictionary roomDictionary;
 	private ClassDictionary classDictionary;
@@ -66,8 +66,8 @@ public class CalendarTop {
 			}
 		}
 		Year newYear = searchYearList(yearNumber);
-		if(newYear!=null) {
-			selectedYear=newYear;
+		if (newYear != null) {
+			selectedYear = newYear;
 			selectedMonth = null;
 			selectedDay = null;
 			selectedCalendarRoom = null;
@@ -91,11 +91,11 @@ public class CalendarTop {
 				}
 			}
 		}
-		if(insertIndex<0) {
-			insertIndex=yearList.size();
-			insertNewYear(yearNumber,yearList.size());
-		}else {
-		insertNewYear(yearNumber, insertIndex);
+		if (insertIndex < 0) {
+			insertIndex = yearList.size();
+			insertNewYear(yearNumber, yearList.size());
+		} else {
+			insertNewYear(yearNumber, insertIndex);
 		}
 		return yearList.get(insertIndex);
 
@@ -151,7 +151,7 @@ public class CalendarTop {
 		Day newDay = selectedMonth.getDay(dayNumber);
 		if (newDay != null) {
 			selectedDay = newDay;
-			selectedCalendarRoom = null;
+			selectedCalendarRoom = selectedDay.getCalendarRoom(roomArray[0]);
 			selectedTimeSlot = null;
 		}
 	}
@@ -175,7 +175,7 @@ public class CalendarTop {
 			return;
 		} else {
 			selectedCalendarRoom = newCalendarRoom;
-			selectedTimeSlot = null;
+			selectedTimeSlot=null;
 		}
 	}
 
@@ -186,6 +186,23 @@ public class CalendarTop {
 		}
 		selectRoom(yearString, otherRoom);
 	}
+	
+	public void changeSelectedRoom(Room otherRoom) {
+		if (selectedCalendarRoom != null) {
+			if (selectedCalendarRoom.getRoom().equals(otherRoom)) {
+				return;
+			}
+		}
+		CalendarRoom newCalendarRoom = selectedDay.getCalendarRoom(otherRoom);
+		if (newCalendarRoom == null) {
+			return;
+		} else {
+			selectedCalendarRoom = newCalendarRoom;
+			selectedTimeSlot=null;
+		}
+	}
+	
+	
 
 	private Room searchRoomId(String roomIdString) {
 		Room indexRoom = null;
@@ -260,49 +277,124 @@ public class CalendarTop {
 		GregorianCalendar newDay = new GregorianCalendar(year, month - 1, day, hour, 0);
 		return timeFormat.format(newDay.getTime());
 	}
-	
+
 	public String[] getSelectedWeekLabelText() {
 		Day[] weekOfDays = getWeekForSelectedDay();
-		String [] weekLabels = {"Sun","Mon","Tue","Wed","Thu","Fri","Sat"};
-		for(int i = 0; i<weekLabels.length; i++) {
-			weekLabels[i]= "<html>"+weekLabels[i]+"<br>"+weekOfDays[i].textLabelFormat()+"</html>";
+		String[] weekLabels = { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
+		for (int i = 0; i < weekLabels.length; i++) {
+			weekLabels[i] = "<html>" + weekLabels[i] + "<br>" + weekOfDays[i].textLabelFormat() + "</html>";
 		}
 		return weekLabels;
-		
+
 	}
-	
+
 	public Day[] getWeekForSelectedDay() {
-		if(selectedDay==null) {
+		if (selectedDay == null) {
 			return null;
 		}
 		Day[] weekOfDays = new Day[7];
-		//day of week starts at 1, not 0
+		// day of week starts at 1, not 0
 		int selectedDayOfWeek = selectedDay.getDay().get(Calendar.DAY_OF_WEEK);
-		int dayWeekOffset = 1-selectedDayOfWeek;
-		int currentYear =selectedDay.getDay().get(Calendar.YEAR);
+		int dayWeekOffset = 1 - selectedDayOfWeek;
+		int currentYear = selectedDay.getDay().get(Calendar.YEAR);
 		int currentMonth = selectedDay.getDay().get(Calendar.MONTH);
 		int currentDayOfMonth = selectedDay.getDay().get(Calendar.DAY_OF_MONTH);
-		GregorianCalendar weekDay = new GregorianCalendar(currentYear,currentMonth,currentDayOfMonth+dayWeekOffset);
-		for(int index=0;index<7;index++) {
-			Year indexYear=selectedYear;
-			Month indexMonth=selectedMonth;
-			//check if week crosses year boundary
-			if(weekDay.get(Calendar.YEAR)!=currentYear) {
-				indexYear=searchYearList(weekDay.get(Calendar.YEAR));
+		GregorianCalendar weekDay = new GregorianCalendar(currentYear, currentMonth, currentDayOfMonth + dayWeekOffset);
+		for (int index = 0; index < 7; index++) {
+			Year indexYear = selectedYear;
+			Month indexMonth = selectedMonth;
+			// check if week crosses year boundary
+			if (weekDay.get(Calendar.YEAR) != currentYear) {
+				indexYear = searchYearList(weekDay.get(Calendar.YEAR));
 			}
-			//check if week crosses month boundary
-			if(weekDay.get(Calendar.MONTH)!=currentMonth) {
-				indexMonth=indexYear.getMonth(weekDay.get(Calendar.MONTH));
+			// check if week crosses month boundary
+			if (weekDay.get(Calendar.MONTH) != currentMonth) {
+				indexMonth = indexYear.getMonth(weekDay.get(Calendar.MONTH));
 			}
-			//getday
-			weekOfDays[index]=indexMonth.getDay(weekDay.get(Calendar.DAY_OF_MONTH));
+			// getday
+			weekOfDays[index] = indexMonth.getDay(weekDay.get(Calendar.DAY_OF_MONTH));
 			weekDay.add(Calendar.DAY_OF_YEAR, 1);
-			
+
 		}
-		
+
 		return weekOfDays;
 	}
-	
+
+	public String[] getWeekRoomButtonText() {
+		if (selectedCalendarRoom == null) {
+			String[] blankText = new String[168];
+			for (int i = 0; i < 168; i++) {
+				blankText[i] = " ";
+			}
+			return blankText;
+		}
+		return getWeekRoomButtonText(selectedCalendarRoom.getRoom());
+	}
+
+	public String[] getWeekRoomButtonText(Room selectRoom) {
+		TimeSlot[] weekTimeSlots = null;
+		String[] weekButtonText = new String[168];
+		if (selectRoom == null) {
+			weekTimeSlots = getWeekRoomTimeSlotsForSelectedDay();
+		} else {
+			weekTimeSlots = getWeekRoomTimeSlotsForSelectedDay(selectRoom);
+		}
+		if (weekTimeSlots == null) {
+			for (int i = 0; i < 168; i++) {
+				weekButtonText[i] = " ";
+			}
+		} else {
+			if (selectRoom == null) {
+				selectRoom = selectedCalendarRoom.getRoom();
+			}
+			int selectedDayOfWeek = selectedDay.getDay().get(Calendar.DAY_OF_WEEK);
+			int dayWeekOffset = 1 - selectedDayOfWeek;
+			int currentYear = selectedDay.getDay().get(Calendar.YEAR);
+			int currentMonth = selectedDay.getDay().get(Calendar.MONTH);
+			int currentDayOfMonth = selectedDay.getDay().get(Calendar.DAY_OF_MONTH);
+			GregorianCalendar weekDay = new GregorianCalendar(currentYear, currentMonth,
+					currentDayOfMonth + dayWeekOffset);
+			int slotCount = 0;
+			for (int dayIndex = 0; dayIndex < 7; dayIndex++) {
+				for (int hourIndex = 0; hourIndex < 24; hourIndex++) {
+					if (weekTimeSlots[slotCount] == null) {
+						weekButtonText[dayIndex + hourIndex * 7] = timeFormat.format(weekDay.getTime()) + "."
+								+ selectRoom.getRoomId() + ".";
+					} else {
+						weekButtonText[dayIndex + hourIndex * 7] = timeFormat.format(weekDay.getTime()) + "."
+								+ selectRoom.getRoomId() + "." + weekTimeSlots[slotCount].buttonTextFormat();
+					}
+					weekDay.add(Calendar.HOUR_OF_DAY, 1);
+				}
+			}
+
+		}
+
+		return weekButtonText;
+	}
+
+	public TimeSlot[] getWeekRoomTimeSlotsForSelectedDay() {
+		if (selectedCalendarRoom == null) {
+			return null;
+		}
+		return getWeekRoomTimeSlotsForSelectedDay(selectedCalendarRoom.getRoom());
+
+	}
+
+	public TimeSlot[] getWeekRoomTimeSlotsForSelectedDay(Room selectRoom) {
+		Day[] weekOfDays = getWeekForSelectedDay();
+		TimeSlot[] weekTimeSlots = new TimeSlot[168];
+		int slotCount = 0;
+		for (int i = 0; i < 7; i++) {
+			CalendarRoom indexRoom = weekOfDays[i].getCalendarRoom(selectRoom);
+			TimeSlot[] indexTimeSlots = indexRoom.getTimeSlots();
+			for (int j = 0; j < 24; j++) {
+				weekTimeSlots[slotCount++] = indexTimeSlots[j];
+			}
+		}
+		return weekTimeSlots;
+	}
+
 	/**
 	 * @return the selectedYear
 	 */
@@ -322,6 +414,15 @@ public class CalendarTop {
 	 */
 	public Day getSelectedDay() {
 		return selectedDay;
+	}
+
+	
+	
+	/**
+	 * @return the selectedCalendarRoom
+	 */
+	public CalendarRoom getSelectedCalendarRoom() {
+		return selectedCalendarRoom;
 	}
 
 	/**

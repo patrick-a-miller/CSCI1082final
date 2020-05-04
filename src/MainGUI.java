@@ -6,7 +6,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import CalendarObjects.CalendarRoom;
 import CalendarObjects.CalendarTop;
+import CalendarObjects.Room;
 import CalendarObjects.TimeSlot;
 
 import java.awt.FlowLayout;
@@ -38,6 +40,12 @@ public class MainGUI extends JFrame {
 	private CalendarTop mainCalendar;
 	private static final int SCROLL_GRID_SIZE = 192;
 	private JButton[] scrollButtonArray = new JButton[SCROLL_GRID_SIZE];
+	
+	JComboBox comboBox;
+	JComboBox comboBox_1;
+	JComboBox comboBox_2;
+	JComboBox comboBox_3;
+		
 	private JLabel columnLabel_blank;
 	private JLabel columnLabel1;
 	private JLabel columnLabel2;
@@ -79,28 +87,32 @@ public class MainGUI extends JFrame {
 		contentPane.add(leftPanel, BorderLayout.WEST);
 		leftPanel.setLayout(new GridLayout(8, 1, 0, 0));
 
+		// date box
 		textDateField = new JTextField();
 		textDateField.setActionCommand("textDateField");
 		textDateField.addActionListener(new TextListener());
-		leftPanel.add(textDateField);// date box
+		leftPanel.add(textDateField);
 		textDateField.setText("MM/DD/YYYY");
 
-		JComboBox comboBox = new JComboBox(TimeSlot.getTimeArray());
-		leftPanel.add(comboBox);// tiemslot
+		// timeslot
+		comboBox = new JComboBox(TimeSlot.getTimeArray());
+		leftPanel.add(comboBox);
 
-		JComboBox comboBox_1 = new JComboBox(mainCalendar.getRoomArray());// room
+		// room
+		comboBox_1 = new JComboBox(mainCalendar.getRoomArray());
+		comboBox_1.setActionCommand("RoomComboBox");
+		comboBox_1.addActionListener(new ComboBoxListener());
 		leftPanel.add(comboBox_1);
 
-		JComboBox comboBox_2 = new JComboBox(mainCalendar.getTeacherArray());// teacher
+		// teacher
+		comboBox_2 = new JComboBox(mainCalendar.getTeacherArray());
 		leftPanel.add(comboBox_2);
 
-		JComboBox comboBox_3 = new JComboBox(mainCalendar.getClassEntryArray());// classentry
+		// classentry
+		comboBox_3 = new JComboBox(mainCalendar.getClassEntryArray());
 		leftPanel.add(comboBox_3);
 
 		textDateField.setColumns(10);
-
-		JComboBox comboBox_5 = new JComboBox();
-		leftPanel.add(comboBox_5);
 
 		JPanel centerPanel = new JPanel();
 		centerPanel.setLayout(new GridLayout(25, 8, 0, 0));
@@ -124,7 +136,7 @@ public class MainGUI extends JFrame {
 		columnLabel7.setHorizontalAlignment(SwingConstants.CENTER);
 
 		int dayHighlight = mainCalendar.getSelectedDay().getDay().get(Calendar.DAY_OF_WEEK);
-		
+
 		setScrollLabelColor(dayHighlight);
 
 		centerPanel.add(columnLabel_blank);
@@ -189,7 +201,7 @@ public class MainGUI extends JFrame {
 		rightPanel.add(btnNewButton_3);
 
 	}
-	
+
 	private String[] getScrollLabelText() {
 		String[] weekLabels = mainCalendar.getSelectedWeekLabelText();
 		return weekLabels;
@@ -237,10 +249,10 @@ public class MainGUI extends JFrame {
 		}
 
 	}
-	
+
 	private void updateScrollLabelText() {
 		String labelText[] = getScrollLabelText();
-		
+
 		columnLabel1.setText(labelText[0]);
 		columnLabel2.setText(labelText[1]);
 		columnLabel3.setText(labelText[2]);
@@ -248,11 +260,11 @@ public class MainGUI extends JFrame {
 		columnLabel5.setText(labelText[4]);
 		columnLabel6.setText(labelText[5]);
 		columnLabel7.setText(labelText[6]);
-		
-		
+
 	}
 
 	private void initializeScrollButtons(JPanel centerPanel, int dayHighlight) {
+		String[] buttonText = mainCalendar.getWeekRoomButtonText();
 		int button_count = 0;
 		for (int i = 0; i < SCROLL_GRID_SIZE; i++) {
 			if (i % 8 == 0) {
@@ -260,32 +272,60 @@ public class MainGUI extends JFrame {
 				rowLabel_i.setHorizontalAlignment(SwingConstants.CENTER);
 				centerPanel.add(rowLabel_i);
 			} else {
-				JButton btnNewButton_i = new JButton("New button");
-				button_count++;
-				if (i % 8 == dayHighlight) {
-					btnNewButton_i.setText(String.valueOf(button_count));
-				} else {
-					btnNewButton_i.setText(String.valueOf(button_count));
-				}
+				String buttonCommand = extractButtonCommand(buttonText[button_count]);
+				String buttonDisplayText = extractButtonText(buttonText[button_count]);
 
+				JButton btnNewButton_i = new JButton(buttonDisplayText);
 				scrollButtonArray[i] = btnNewButton_i;
+				btnNewButton_i.setActionCommand(buttonCommand);
+				btnNewButton_i.addActionListener(new ScrollButtonListener());
 				centerPanel.add(btnNewButton_i);
+				button_count++;
 			}
 		}
-		
-		updateScrollButtonColor(scrollButtonArray,dayHighlight);
+
+		updateScrollButtonColor(dayHighlight);
 
 	}
 
-	private void updateScrollButtonColor(JButton[] scrollButtonArray, int dayHighlight) {
+	private String extractButtonCommand(String buttonText) {
+		int firstIndex = buttonText.indexOf(".");
+		int secondIndex = buttonText.indexOf(".", firstIndex + 1);
+		return buttonText.substring(0, secondIndex);
+	}
+
+	private String extractButtonText(String buttonText) {
+		int firstIndex = buttonText.indexOf(".");
+		int secondIndex = buttonText.indexOf(".", firstIndex + 1);
+		return buttonText.substring(secondIndex + 1);
+
+	}
+
+	private void updateScrollButtonText() {
+		String[] buttonText = mainCalendar.getWeekRoomButtonText();
+		int button_count = 0;
+		for (int i = 0; i < SCROLL_GRID_SIZE; i++) {
+			if (i % 8 != 0) {
+				String buttonCommand = extractButtonCommand(buttonText[button_count]);
+				String buttonDisplayText = extractButtonText(buttonText[button_count]);
+				scrollButtonArray[i].setText(buttonDisplayText);
+				scrollButtonArray[i].setActionCommand(buttonCommand);
+				button_count++;
+			}
+
+		}
+	}
+
+	private void updateScrollButtonColor(int dayHighlight) {
 
 		for (int i = 0; i < SCROLL_GRID_SIZE; i++) {
-			if(scrollButtonArray[i]!=null) {
-			if (i % 8 == dayHighlight) {
-				scrollButtonArray[i].setBackground(Color.WHITE);
-			} else {
-				scrollButtonArray[i].setBackground(Color.LIGHT_GRAY);
-			}}
+			if (scrollButtonArray[i] != null) {
+				if (i % 8 == dayHighlight) {
+					scrollButtonArray[i].setBackground(Color.WHITE);
+				} else {
+					scrollButtonArray[i].setBackground(Color.LIGHT_GRAY);
+				}
+			}
 
 		}
 
@@ -297,32 +337,66 @@ public class MainGUI extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 
 			if (e.getActionCommand() == "textDateField") {
-				String dateString =textDateField.getText();
+				String dateString = textDateField.getText();
 				String REGEX = "^[0-1]?[0-9]/[0-3]?[0-9]/[0-9][0-9][0-9][0-9]$";
 				Pattern pattern = Pattern.compile(REGEX);
 				Pattern splitChar = Pattern.compile("/");
-				
+
 				if (!(pattern.matcher(dateString).find())) {
 					System.out.println("Invalid Date format");
-				}else {
-				String[] dateSplit = splitChar.split(dateString);
-				
-				String yearString = mainCalendar.adjustDateInput(dateSplit[2], dateSplit[0], dateSplit[1], "0");
-				
-				
-				mainCalendar.selectDay(yearString);
-				textDateField.setText(mainCalendar.getSelectedDay().textFieldFormat());
+				} else {
+					String[] dateSplit = splitChar.split(dateString);
+
+					String yearString = mainCalendar.adjustDateInput(dateSplit[2], dateSplit[0], dateSplit[1], "0");
+
+					mainCalendar.selectDay(yearString);
+					textDateField.setText(mainCalendar.getSelectedDay().textFieldFormat());
 				}
-				
+
 				int dayHighlight = mainCalendar.getSelectedDay().getDay().get(Calendar.DAY_OF_WEEK);
 				updateScrollLabelText();
 				setScrollLabelColor(dayHighlight);
-				updateScrollButtonColor(scrollButtonArray,dayHighlight);
-								
+				updateScrollButtonText();
+				updateScrollButtonColor(dayHighlight);
+
 			}
+
+		}
+
+	}
+	
+	public class ComboBoxListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+		Room roomSelection = (Room)comboBox_1.getSelectedItem();
+		mainCalendar.changeSelectedRoom(roomSelection);
+		updateScrollButtonText();
+			
+		}
+		
+	}
+
+	public class ScrollButtonListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			Pattern splitCommand = Pattern.compile("\\.");
+			String buttonCommand=e.getActionCommand();
+			String[] buttonSplit= splitCommand.split(buttonCommand);
+			mainCalendar.selectTimeSlot(buttonSplit[0], buttonSplit[1]);
+			textDateField.setText(mainCalendar.getSelectedDay().textFieldFormat());
+			comboBox.setSelectedIndex(Integer.parseInt(buttonSplit[0].substring(8)));
+			int dayHighlight = mainCalendar.getSelectedDay().getDay().get(Calendar.DAY_OF_WEEK);
+			setScrollLabelColor(dayHighlight);
+			updateScrollButtonText();
+			updateScrollButtonColor(dayHighlight);
+			
 
 		}
 
 	}
 
 }
+
+
