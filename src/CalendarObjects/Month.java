@@ -25,7 +25,7 @@ public class Month{
 	}
 	
 	public Day getDay(int dayNumber) {
-		if(dayNumber<0 || dayNumber>days.length-1) {
+		if(dayNumber<0 || dayNumber>days.length) {
 			return null;
 		}else {
 			return days[dayNumber-1];
