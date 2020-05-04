@@ -175,7 +175,7 @@ public class MainGUI extends JFrame {
 		btnDetailView.addActionListener(new ActionListener() {	
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				new DetailedView()//unsure how to pass a timeslot here
+				new DetailedView(mainCalendar.getSelectedTimeSlot());
 				
 			}
 		});
