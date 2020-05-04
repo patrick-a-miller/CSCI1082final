@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.TextArea;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -15,6 +16,10 @@ public class DetailedView extends JFrame {
 
 	private TimeSlot timeslot;
 	private CalendarTop cal;
+	private Teacher teacher;
+	private CalendarRoom room;
+	private ClassEntry classentry;
+	
 	
 	public TimeSlot getTimeslot() {
 		return timeslot;
@@ -58,15 +63,9 @@ public class DetailedView extends JFrame {
 		
 		JTextArea textArea = new JTextArea();
 		panel.add(textArea);
+		textArea.setText(room.toString() + "\n" + teacher.toString() + "\n" + classentry.detailView());
+		
 	}
 
-	//need the tostring() of room, teacher, classentry and the time somewhere
-	public void fillTextArea() {
-		
-		
-		
-		
-		
-	}
 	
 }
