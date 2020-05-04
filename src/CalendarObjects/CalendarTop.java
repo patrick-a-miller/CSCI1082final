@@ -17,17 +17,18 @@ public class CalendarTop {
 	private Day selectedDay;
 	private CalendarRoom selectedCalendarRoom;
 	private TimeSlot selectedTimeSlot;
-	
+
 	private TeacherDictionary teacherDictionary;
-	private RoomDictionary roomDictionary;      
-	private ClassDictionary classDictionary; 
-	
+	private RoomDictionary roomDictionary;
+	private ClassDictionary classDictionary;
+
 	private Room[] roomArray;
 	private SimpleDateFormat timeFormat = new SimpleDateFormat("yyyyMMddHH");
 
 	public CalendarTop() {
 		setupDictionaries();
-		setupYearList(roomDictionary.getRoomArray());
+		roomArray = roomDictionary.getRoomArray();
+		setupYearList(roomArray);
 		setupDefaultSelections();
 	}
 
@@ -36,7 +37,7 @@ public class CalendarTop {
 		teacherDictionary = new TeacherDictionary();
 		roomDictionary = new RoomDictionary();
 		classDictionary = new ClassDictionary();
-		
+
 	}
 
 	private void setupYearList(Room[] roomArray) {
@@ -48,8 +49,7 @@ public class CalendarTop {
 
 	private void setupDefaultSelections() {
 		String yearString = timeFormat.format(selectedYear.getYear().getTime());
-		System.out.println("CalendarTop yearString: " + yearString);
-
+		selectTimeSlot(yearString, roomArray[0]);
 	}
 
 	public void selectYear(String yearString) {
@@ -58,9 +58,11 @@ public class CalendarTop {
 	}
 
 	public void selectYear(int yearNumber) {
-		int currentNumber = convertYearToYearNumber(selectedYear);
-		if (yearNumber == currentNumber) {
-			return;
+		if (selectedYear != null) {
+			int currentNumber = convertYearToYearNumber(selectedYear);
+			if (yearNumber == currentNumber) {
+				return;
+			}
 		}
 		searchYearList(yearNumber);
 
@@ -81,7 +83,17 @@ public class CalendarTop {
 				}
 			}
 		}
+		if(insertIndex<0) {
+			insertIndex=yearList.size();
+			insertNewYear(yearNumber,yearList.size());
+		}else {
 		insertNewYear(yearNumber, insertIndex);
+		}
+		selectedYear = yearList.get(insertIndex);
+		selectedMonth = null;
+		selectedDay = null;
+		selectedCalendarRoom = null;
+		selectedTimeSlot = null;
 
 	}
 
@@ -102,13 +114,18 @@ public class CalendarTop {
 	public void selectMonth(String yearString) {
 		selectYear(yearString);
 		int monthNumber = extractMonthValue(yearString);
-		int currentNumber = convertMonthToMonthNumber(selectedMonth);
-		if (monthNumber == currentNumber) {
-			return;
+		if (selectedMonth != null) {
+			int currentNumber = convertMonthToMonthNumber(selectedMonth);
+			if (monthNumber == currentNumber) {
+				return;
+			}
 		}
 		Month newMonth = selectedYear.getMonth(monthNumber);
 		if (newMonth != null) {
 			selectedMonth = newMonth;
+			selectedDay = null;
+			selectedCalendarRoom = null;
+			selectedTimeSlot = null;
 		}
 	}
 
@@ -121,13 +138,17 @@ public class CalendarTop {
 		selectYear(yearString);
 		selectMonth(yearString);
 		int dayNumber = extractDayValue(yearString);
-		int currentNumber = convertDayToDayNumber(selectedDay);
-		if (dayNumber == currentNumber) {
-			return;
+		if (selectedDay != null) {
+			int currentNumber = convertDayToDayNumber(selectedDay);
+			if (dayNumber == currentNumber) {
+				return;
+			}
 		}
 		Day newDay = selectedMonth.getDay(dayNumber);
 		if (newDay != null) {
 			selectedDay = newDay;
+			selectedCalendarRoom = null;
+			selectedTimeSlot = null;
 		}
 	}
 
@@ -140,14 +161,17 @@ public class CalendarTop {
 		selectYear(yearString);
 		selectMonth(yearString);
 		selectDay(yearString);
-		if (selectedCalendarRoom.getRoom().equals(otherRoom)) {
-			return;
+		if (selectedCalendarRoom != null) {
+			if (selectedCalendarRoom.getRoom().equals(otherRoom)) {
+				return;
+			}
 		}
 		CalendarRoom newCalendarRoom = selectedDay.getCalendarRoom(otherRoom);
 		if (newCalendarRoom == null) {
 			return;
 		} else {
 			selectedCalendarRoom = newCalendarRoom;
+			selectedTimeSlot = null;
 		}
 	}
 
@@ -176,8 +200,10 @@ public class CalendarTop {
 		selectDay(yearString);
 		selectRoom(yearString, otherRoom);
 		int time = extractHourValue(yearString);
-		if (selectedTimeSlot.getTime() == time) {
-			return;
+		if (selectedTimeSlot != null) {
+			if (selectedTimeSlot.getTime() == time) {
+				return;
+			}
 		}
 		TimeSlot otherTimeSlot = selectedCalendarRoom.getTimeSlot(time);
 		if (otherTimeSlot == null) {
@@ -189,10 +215,10 @@ public class CalendarTop {
 	}
 
 	public void selectTimeSlot(String yearString, String roomIdString) {
-		Room otherRoom = searchRoomId(roomIdString);
 		if (roomIdString == null) {
 			return;
 		}
+		Room otherRoom = searchRoomId(roomIdString);
 		selectTimeSlot(yearString, otherRoom);
 
 	}
@@ -203,7 +229,7 @@ public class CalendarTop {
 	}
 
 	private int extractMonthValue(String yearString) {
-		int monthNumber = Integer.parseInt(yearString.substring(4, 6));
+		int monthNumber = Integer.parseInt(yearString.substring(4, 6)) - 1;
 		return monthNumber;
 	}
 
@@ -217,10 +243,48 @@ public class CalendarTop {
 		int hourNumber = Integer.parseInt(yearString.substring(8, 10));
 		return hourNumber;
 	}
-	
-	
-	
-	
+
+	public String adjustDateInput(String year, String month, String day, String hour) {
+		int yearNumber = Integer.parseInt(year);
+		int monthNumber = Integer.parseInt(month);
+		int dayNumber = Integer.parseInt(day);
+		int hourNumber = Integer.parseInt(hour);
+		return adjustDateInput(yearNumber, monthNumber, dayNumber, hourNumber);
+	}
+
+	public String adjustDateInput(int year, int month, int day, int hour) {
+		GregorianCalendar newDay = new GregorianCalendar(year, month - 1, day, hour, 0);
+		return timeFormat.format(newDay.getTime());
+	}
+
+	/**
+	 * @return the selectedYear
+	 */
+	public Year getSelectedYear() {
+		return selectedYear;
+	}
+
+	/**
+	 * @return the selectedMonth
+	 */
+	public Month getSelectedMonth() {
+		return selectedMonth;
+	}
+
+	/**
+	 * @return the selectedDay
+	 */
+	public Day getSelectedDay() {
+		return selectedDay;
+	}
+
+	/**
+	 * @return the selectedTimeSlot
+	 */
+	public TimeSlot getSelectedTimeSlot() {
+		return selectedTimeSlot;
+	}
+
 	/**
 	 * @return the teacherDictionary
 	 */
@@ -245,23 +309,22 @@ public class CalendarTop {
 	public Room[] getRoomArray() {
 		return roomDictionary.getRoomArray();
 	}
-	
+
 	public Teacher[] getTeacherArray() {
 		return teacherDictionary.getTeacherArray();
 	}
-	
+
 	public ClassEntry[] getClassEntryArray() {
 		return classDictionary.getClassEntryArray();
 	}
-	
-	
+
 	@Override
 	public String toString() {
 		String text = "Calendar: \n";
-		text+="Current Year: "+selectedYear+" Current Month: "+selectedMonth+" Current Day: "+selectedDay
-			+ " Current Room: "+selectedCalendarRoom+" Selected Time: "+ selectedTimeSlot+"\n";
-		for(int i=0; i<yearList.size();i++) {
-			text+=yearList.get(i).toString();
+		text += "Current Year: " + selectedYear + " Current Month: " + selectedMonth + " Current Day: " + selectedDay
+				+ " Current Room: " + selectedCalendarRoom + " Selected Time: " + selectedTimeSlot + "\n";
+		for (int i = 0; i < yearList.size(); i++) {
+			text += yearList.get(i).toString();
 		}
 		return text;
 	}
