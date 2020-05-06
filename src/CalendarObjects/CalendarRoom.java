@@ -1,7 +1,6 @@
 package CalendarObjects;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
-//import java.util.GregorianCalendar;
 
 
 public class CalendarRoom {

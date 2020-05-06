@@ -71,7 +71,6 @@ public class MainGUI extends JFrame {
 	 */
 	public MainGUI() {
 		mainCalendar = new CalendarTop();
-		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setupWindowListener();
 		setBounds(100, 100, 1215, 645);

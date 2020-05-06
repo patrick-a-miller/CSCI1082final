@@ -31,12 +31,6 @@ public class DataFile {
 	private ArrayList<String> rawData;
 	private SimpleDateFormat timeFormat = new SimpleDateFormat("yyyyMMddHH");
 
-	// year,month,day,room,time
-
-	// Room otherRoom = searchRoomId(roomIdString);
-	// getClassEntryArray() {
-	// getTeacherArray() {
-	// addTimeSlot(int time, ClassEntry classEntry, Teacher teacher) {
 	Scanner reader;
 	PrintWriter writer;
 
