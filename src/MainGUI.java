@@ -6,31 +6,24 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import CalendarObjects.CalendarRoom;
 import CalendarObjects.CalendarTop;
 import CalendarObjects.ClassEntry;
 import CalendarObjects.Room;
 import CalendarObjects.Teacher;
 import CalendarObjects.TimeSlot;
 
-import java.awt.FlowLayout;
-import javax.swing.JScrollBar;
 import java.awt.GridLayout;
 import javax.swing.JButton;
-import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
-import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
-import java.awt.Dimension;
-import java.awt.Rectangle;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
-import javax.swing.JProgressBar;
 import java.awt.Color;
 import java.awt.SystemColor;
 import javax.swing.UIManager;
@@ -78,8 +71,10 @@ public class MainGUI extends JFrame {
 	 */
 	public MainGUI() {
 		mainCalendar = new CalendarTop();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 794, 575);
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setupWindowListener();
+		setBounds(100, 100, 1215, 645);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -192,6 +187,18 @@ public class MainGUI extends JFrame {
 		JButton btnNewButton_3 = new JButton("Backward 1 Week");
 		rightPanel.add(btnNewButton_3);
 
+	}
+	
+	private void setupWindowListener() {
+		addWindowListener(new WindowAdapter() {
+			
+			@Override
+			public void windowClosing(WindowEvent e) {
+				mainCalendar.writeEventsToFile();
+				dispose();
+			}
+			
+		});
 	}
 
 	private String[] getScrollLabelText() {
@@ -411,7 +418,7 @@ public class MainGUI extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			
 			String buttonCommand = e.getActionCommand();
-			if (buttonCommand == "Add Event") {
+				if (buttonCommand == "Add Event") {
 				String yearString = buildYearString();
 				Room roomSelection =(Room) comboBox_1.getSelectedItem();
 				mainCalendar.selectRoom(yearString, roomSelection);
@@ -419,9 +426,7 @@ public class MainGUI extends JFrame {
 				ClassEntry classEntry=(ClassEntry) comboBox_3.getSelectedItem();
 				Teacher teacher = (Teacher) comboBox_2.getSelectedItem();
 				mainCalendar.getSelectedCalendarRoom().addTimeSlot(time, classEntry, teacher);
-				
 				updateScrollButtonText();
-
 			} else if (buttonCommand == "Remove Event") {
 				String yearString = buildYearString();
 				Room roomSelection =(Room) comboBox_1.getSelectedItem();

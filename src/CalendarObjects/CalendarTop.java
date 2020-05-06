@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import CalendarFiles.ClassDictionary;
+import CalendarFiles.DataFile;
 import CalendarFiles.RoomDictionary;
 import CalendarFiles.TeacherDictionary;
 
@@ -22,6 +23,7 @@ public class CalendarTop {
 	private TeacherDictionary teacherDictionary;
 	private RoomDictionary roomDictionary;
 	private ClassDictionary classDictionary;
+	private DataFile calendarData;
 
 	private Room[] roomArray;
 	private SimpleDateFormat timeFormat = new SimpleDateFormat("yyyyMMddHH");
@@ -30,9 +32,11 @@ public class CalendarTop {
 		setupDictionaries();
 		roomArray = roomDictionary.getRoomArray();
 		setupYearList(roomArray);
+		processDataFile();
 		setupDefaultSelections();
-	}
+		}
 
+	
 	private void setupDictionaries() {
 		CalendarFiles.DefaultFileSetup.maybeSetUpFiles();
 		teacherDictionary = new TeacherDictionary();
@@ -51,6 +55,11 @@ public class CalendarTop {
 	private void setupDefaultSelections() {
 		String yearString = timeFormat.format(selectedYear.getYear().getTime());
 		selectTimeSlot(yearString, roomArray[0]);
+	}
+	
+	private void processDataFile() {
+	calendarData = new DataFile(yearList,this);
+		calendarData.updateSchedule();
 	}
 
 	public void selectYear(String yearString) {
@@ -467,6 +476,10 @@ public class CalendarTop {
 		return classDictionary.getClassEntryArray();
 	}
 
+	public void writeEventsToFile() {
+		calendarData.writeData();
+	}
+	
 	@Override
 	public String toString() {
 		String text = "Calendar: \n";

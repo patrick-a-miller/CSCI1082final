@@ -13,7 +13,7 @@ public class DictionaryFile extends ObjectFile {
 
 	private boolean isValid;
 	private int entryCount;
-	Scanner reader;
+	private Scanner reader;
 	private String[] dictionaryData;
 
 	public DictionaryFile(String filePath, String type) {
