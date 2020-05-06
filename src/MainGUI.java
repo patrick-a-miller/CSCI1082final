@@ -172,6 +172,11 @@ public class MainGUI extends JFrame {
 
 		JButton btnDetailView = new JButton("Detail view");
 		rightPanel.add(btnDetailView);
+		btnDetailView.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new DetailedView(mainCalendar.getSelectedTimeSlot());
+			}
+		});
 
 		JLabel lblNewLabel = new JLabel("");
 		rightPanel.add(lblNewLabel);
