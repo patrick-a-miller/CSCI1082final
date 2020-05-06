@@ -39,3 +39,8 @@ Additional step changes:
  1) Arranged class files into packages per their use: data objects used as part of the model, and calendar files that hold data pulled into the application.
  2) calendar files load from formatted text files
  3) calendar file objects also provide a sorted array of the object type associated with their data in the data objects package
+ 4) Date structure reorganized.
+ 4) Scrollable calendar pane created.
+ 5) Navigation by user-typed text field implemented.
+ 6) Add/remove event buttons implemented.
+ 7) Calendar stores reserved slots to a file on exit and reloads them upon restart.
