@@ -13,3 +13,18 @@
 <NAME>Brian Jenson
 <EMAIL>brij@debug.fakecentury.edu
 <ENTRYEND>
+<ENTRYSTART>
+<ID>HAR_J
+<NAME>Harry Jones
+<EMAIL>harj@debug.fakecentury.edu
+<ENTRYEND>
+<ENTRYSTART>
+<ID>BIL_M
+<NAME>Bill Myril
+<EMAIL>bilm@debug.fakecentury.edu
+<ENTRYEND>
+<ENTRYSTART>
+<ID>JEN_J
+<NAME>Jenny Johnson
+<EMAIL>jenj@debug.fakecentury.edu
+<ENTRYEND>

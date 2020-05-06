@@ -14,7 +14,7 @@ public class DetailedView extends JFrame {
 
 	private JPanel contentPane;
 
-	private TimeSlot timeslot;
+	private static TimeSlot timeslot;
 	private CalendarTop cal;
 	private Teacher teacher;
 	private CalendarRoom room;
@@ -32,25 +32,13 @@ public class DetailedView extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					DetailedView frame = new DetailedView();
-				
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	
 	/**
 	 * Create the frame.
 	 */
-	public DetailedView() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	public DetailedView(TimeSlot slot) {
+		setTitle("Detailed View");
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -61,11 +49,16 @@ public class DetailedView extends JFrame {
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(new BorderLayout(0, 0));
 		
+
+		
 		JTextArea textArea = new JTextArea();
 		panel.add(textArea);
-		textArea.setText(room.toString() + "\n" + teacher.toString() + "\n" + classentry.detailView());
-		
+		try {
+			textArea.setText(slot.getRoom().toString() + "\n------------------\n" + slot.getTeacher().toString() + "\n------------------\n" + slot.getClassEntry().detailView());
+		} catch (Exception e) {
+			textArea.setText("Plese Select A Timeslot with something Scheduled");
 	}
-
+		this.setVisible(true);
 	
+}
 }

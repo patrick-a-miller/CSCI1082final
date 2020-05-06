@@ -53,7 +53,7 @@ public class Teacher implements Comparable{
 	
 	@Override
 	public String toString() {
-		String text = "Teacher: "+id;
+		String text = "Teacher: "+ name;
 		return text;
 	}
 	

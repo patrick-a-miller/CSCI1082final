@@ -172,22 +172,15 @@ public class MainGUI extends JFrame {
 
 		JButton btnDetailView = new JButton("Detail view");
 		rightPanel.add(btnDetailView);
-
-		JLabel lblNewLabel = new JLabel("");
-		rightPanel.add(lblNewLabel);
-
-		JButton btnNewButton_2 = new JButton("Forward 1 Week");
-		btnNewButton_2.addActionListener(new ActionListener() {
+		btnDetailView.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				new DetailedView(mainCalendar.getSelectedTimeSlot());
+				
 			}
 		});
-		rightPanel.add(btnNewButton_2);
-
-		JButton btnNewButton_3 = new JButton("Backward 1 Week");
-		rightPanel.add(btnNewButton_3);
-
 	}
-	
+
+
 	private void setupWindowListener() {
 		addWindowListener(new WindowAdapter() {
 			
