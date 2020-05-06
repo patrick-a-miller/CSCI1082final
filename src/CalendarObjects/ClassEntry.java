@@ -66,13 +66,11 @@ public class ClassEntry implements Comparable {
 
 	public String detailView() {
 		String text = "Class: " + classTitle + "\n";
-		text += "Schedule: " + classSchedule + "\n";
-		text += "Count: " + studentCount + "\n";
+		text += "Class Size: " + studentCount + "\n";
 		text += "Students: \n";
 		for (String current : studentList) {
 			text += current + "\n";
 		}
-		text += "Index: " + index + "\n";
 		return text;
 	}
 
