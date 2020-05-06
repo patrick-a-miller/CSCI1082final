@@ -150,9 +150,11 @@ public class DataFile {
 	public void updateSchedule() {
 		if (!eventRecordList.isEmpty()) {
 			for (EventRecord current : eventRecordList) {
-				calendarYears.selectRoom(current.getCombinedDateValues(), current.getRoom());
-				calendarYears.getSelectedCalendarRoom().addTimeSlot(current.getHour(), current.getClassEntry(),
-						current.getTeacher());
+				if (current.isValid()) {
+					calendarYears.selectRoom(current.getCombinedDateValues(), current.getRoom());
+					calendarYears.getSelectedCalendarRoom().addTimeSlot(current.getHour(), current.getClassEntry(),
+							current.getTeacher());
+				}
 			}
 		}
 	}
