@@ -53,7 +53,6 @@ public class Teacher implements Comparable{
 	
 	@Override
 	public String toString() {
-	//	String text = "ID: "+id+" Name: "+name+" Email: "+email+" Index: " + index+ "\n";
 		String text = "Teacher: "+id;
 		return text;
 	}
