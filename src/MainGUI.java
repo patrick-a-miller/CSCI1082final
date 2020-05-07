@@ -163,12 +163,11 @@ public class MainGUI extends JFrame {
 		btnRemoveButton.addActionListener(new PanelButtonListener());
 		rightPanel.add(btnRemoveButton);
 
-		JButton btnNewButton = new JButton("Generate Next year");
-		btnNewButton.addActionListener(new PanelButtonListener());
-		rightPanel.add(btnNewButton);
+		JLabel lblSpacer1 = new JLabel("");
+		rightPanel.add(lblSpacer1);
 
-		JButton btnNewButton_1 = new JButton("Generate last year");
-		rightPanel.add(btnNewButton_1);
+		JLabel lblSpacer2 = new JLabel("");
+		rightPanel.add(lblSpacer2);
 
 		JButton btnDetailView = new JButton("Detail view");
 		rightPanel.add(btnDetailView);
@@ -308,11 +307,15 @@ public class MainGUI extends JFrame {
 	}
 
 	private void updateScrollButtonColor(int dayHighlight) {
-
+		int time = comboBox.getSelectedIndex();
 		for (int i = 0; i < SCROLL_GRID_SIZE; i++) {
 			if (scrollButtonArray[i] != null) {
 				if (i % 8 == dayHighlight) {
+					if(i/8==time) {
+						scrollButtonArray[i].setBackground(Color.CYAN);
+					}else {
 					scrollButtonArray[i].setBackground(Color.WHITE);
+					}
 				} else {
 					scrollButtonArray[i].setBackground(Color.LIGHT_GRAY);
 				}
@@ -370,6 +373,8 @@ public class MainGUI extends JFrame {
 				Room roomSelection =(Room) comboBox_1.getSelectedItem();
 				mainCalendar.selectTimeSlot(yearString, roomSelection);
 				updateScrollButtonText();
+				int dayHighlight = mainCalendar.getSelectedDay().getDay().get(Calendar.DAY_OF_WEEK);
+				updateScrollButtonColor(dayHighlight);
 			}
 
 		}
