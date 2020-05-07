@@ -163,12 +163,6 @@ public class MainGUI extends JFrame {
 		btnRemoveButton.addActionListener(new PanelButtonListener());
 		rightPanel.add(btnRemoveButton);
 
-		JLabel lblSpacer1 = new JLabel("");
-		rightPanel.add(lblSpacer1);
-
-		JLabel lblSpacer2 = new JLabel("");
-		rightPanel.add(lblSpacer2);
-
 		JButton btnDetailView = new JButton("Detail view");
 		rightPanel.add(btnDetailView);
 		btnDetailView.addActionListener(new ActionListener() {
